@@ -1,6 +1,6 @@
 <?php 
 
-// $studName = "David";
+$studName = "David";
 // $age = 30;
 // define("NAME", "David");
 
