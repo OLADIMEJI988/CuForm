@@ -29,68 +29,13 @@
 
 
 
-
-       (A) // when its a variable (reassignable)
-
-        $studName = "David";
-        <?php echo $studName ?>
-
-
-        (B) // when its a constant
-
-        define("NAME", "David");
-        <?php echo NAME; ?>
-
-
-        (C) //CONCATENATION
-
-        $stringOne = "my email is ";
-        $stringTwo = "mario123@thenetninja.co.uk";
-
-        echo $stringOne . $stringTwo;
-
-        //concatenation of a variable with a string
-
-        $name = "mario";
-
-        echo "Hey my name is " . $name;
-
-        or
-        
-        $name = "mario";
-
-        echo "Hey my name is $name";
-
-
-       (D) // escaping characters
-
-        echo "the ninja screamed \"whaaaa\"";
-        or
-        echo 'the ninja screamed "whaaa"';
-
-
-       (E) //finding characters
-
-        $name = "mario";
-
-        echo $name[0]; //outputs the first character (a)
-
-
-        (F) //FUNCTIONS
-
-        $name = "mario";
-
-        echo strlen($name);  //outputs 5
-        echo str_replace("m", "w", $name); //outputs wario 
-
-
         value="<?php echo htmlspecialchars($name) ?>"
 
         // if (isset($_POST['submit'])) {
-//   echo htmlspecialchars($_POST['name']);
-//   echo htmlspecialchars($_POST['matricNum']);
-//   echo htmlspecialchars($_POST['programme']);
-// }
+//           echo htmlspecialchars($_POST['name']);
+//           echo htmlspecialchars($_POST['matricNum']);
+//           echo htmlspecialchars($_POST['programme']);
+//         }
 
 
 
