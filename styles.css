@@ -42,7 +42,7 @@
 }
 .form-control{
     border-width: 1.5px;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
 }
 .recommendationTxt{
@@ -76,6 +76,18 @@
 .btn:active{
     transform: scale(0.8);
 }
+.error{
+    color: red;
+    font-size: 13px;
+    opacity: 0.8;
+}
+/* .char-counter {
+    font-size: 14px;
+    color: #555;
+}
+.char-counter.over-limit {
+    color: #ff0000;
+} */
 /* input[type="date"]::-webkit-calendar-picker-indicator {
     opacity: 1;
     cursor: pointer;

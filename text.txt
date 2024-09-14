@@ -82,3 +82,317 @@
 
         echo strlen($name);  //outputs 5
         echo str_replace("m", "w", $name); //outputs wario 
+
+
+        value="<?php echo htmlspecialchars($name) ?>"
+
+        // if (isset($_POST['submit'])) {
+//   echo htmlspecialchars($_POST['name']);
+//   echo htmlspecialchars($_POST['matricNum']);
+//   echo htmlspecialchars($_POST['programme']);
+// }
+
+
+
+// $name = '';
+// $errors = array('name'=>'');
+
+// if (empty($_POST['name'])){
+//   $errors['name'] = 'A name is required <br />';
+// } else {
+//   $name = $_POST['name'];
+//   if(!preg_match('/^[a-zA-Z\s]+$/', $name)){
+//     $errors['name'] = 'Name must be letters and spaces only';
+//   }
+// }
+
+
+
+
+<?php 
+
+// connect to database
+$conn = mysqli_connect('localhost', 'sholanke', 'shinnely_JR1', 'appoint_supe');
+
+// check connection
+if(!$conn){
+  echo 'Connection error: ' . mysqli_connect_error();
+}
+
+// write query for all students
+$sql = 'SELECT id, matric_num, programme, college, degree, first_reg_date, recent_reg_date, senate_approval_date FROM stud_info ORDER BY created_at';
+
+// make query & get result
+$result = mysqli_query($conn, $sql);
+
+// fetch the resulting rows as an array
+$studInfos = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+// free result from memory
+mysqli_free_result($result);
+
+// close connection
+mysqli_close($conn);
+
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="node_modules/bootstrap/dist/css/bootstrap.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        .char-counter {
+            font-size: 14px;
+            color: #555;
+        }
+        .char-counter.warning {
+            color: red;
+        }
+    </style>
+  </head>
+  <body>
+    <p class="title text-center">
+      Recommendation for appointment of supervisors
+    </p>
+    <div class="form border mx-auto">
+      <img class="logo" src="./img/CU_LOGO.jpg" alt="" />
+      <?php foreach($studInfos as $studInfo){ ?>
+      <form action = "index.php" method = "POST">
+        <div class="row">
+          <!-- Name -->
+          <div class="mb-3 col">
+            <label for="name" class="form-label">Name</label>
+            <input type="search" class="form-control" id="name" name="name" list="search-options"  />
+            <!-- <div class="error"><?php echo $errors['name']; ?></div> -->
+
+            <datalist id="search-options">
+              <option value="Sholanke Oladimeji David">
+              <option value="Oladimeji Sholanke David">
+              <option value="David Oladimeji Sholanke">
+              <option value="Olamide Sholanke Daniel">
+            </datalist>
+
+          </div>
+          <!-- Matric -->
+          <div class="mb-3 col">
+            <label for="exampleInputEmail1" class="form-label"
+              >Matriculation</label
+            >
+            <input type="text" class="form-control" id="matric_num" name = "matricNum" value="<?php echo htmlspecialchars($studInfo['matric_num']); ?>"/>
+          </div>
+        </div>
+        <!--  -->
+        <div class="row">
+          <!-- Programme -->
+          <div class="mb-3 col">
+            <label for="exampleInputEmail1" class="form-label" 
+              >Programme/Department</label
+            >
+            <input type="text" class="form-control" id="programme" name = "programme" value="<?php echo htmlspecialchars($studInfo['programme']); ?>" />
+          </div>
+          <!-- College -->
+          <div class="mb-3 col">
+            <label for="exampleInputEmail1" class="form-label">College</label>
+            <input type="text" class="form-control" id="college" name = "college" value="<?php echo htmlspecialchars($studInfo['college']); ?>" />
+          </div>
+        </div>
+        <!-- Degree in view -->
+        <div class="mb-3">
+          <label for="degree" class="form-label"
+            >Degree in view</label
+          >
+          <input type="search" class="form-control" id="college" name = "degree" list="search-option" value="<?php echo htmlspecialchars($studInfo['degree']); ?>" />
+          
+          <datalist id="search-option">
+            <option value="Bachelor's Degree">
+            <option value="Masters">
+            <option value="P.hd">
+          </datalist>
+
+        </div>
+        <!-- DATES -->
+        <div class="row">
+          <div class="mb-3 col">
+            <label for="datePicker" class="form-label-date"
+              >Date of First Registration</label
+            >
+            <input type="date" class="form-control hide-text" id="datePicker" name = "firstReg" value="<?php echo htmlspecialchars($studInfo['first_reg_date']); ?>" />
+          </div>
+          <!--  -->
+          <div class="mb-3 col">
+            <label for="datePicker" class="form-label-date"
+              >Date of Most Recent Registration</label
+            >
+            <input type="date" class="form-control" id="datePicker" name = "recentReg"/>
+          </div>
+          <!--  -->
+          <div class="mb-3 col">
+            <label for="datePicker" class="form-label-date"
+              >Date of Senate Approval of Coursework Result</label
+            >
+            <input type="date" class="form-control" id="datePicker" name = "approvalDate"/>
+          </div>
+        </div>
+        <!-- Title of Thesis -->
+        <div class="mb-3 col">
+          <label for="thesis" class="form-label"
+            >Proposed Title of Thesis</label
+          >
+          <input type="text" class="form-control" id="thesis" name = "thesis"/>
+        </div>
+        <!--  -->
+        <p class="recommendationTxt">Recommended Supervisors :</p>
+        <!-- Supervisors -->
+        <div>
+          <div class="row">
+            <!-- name of supervisor -->
+            <div class="mb-3 col">
+              <label for="supervisorName" class="form-label"
+                >Name of Supervisor</label
+              >
+              <input type="text" class="form-control" id="supervisorName" />
+            </div>
+            <!-- rank -->
+            <div class="mb-3 col">
+              <label for="rank" class="form-label">Rank</label>
+              <input type="text" class="form-control" id="rank" />
+            </div>
+            <!-- institutional affiliation -->
+            <div class="mb-3 col">
+              <label for="supervisorName" class="form-label"
+                >Institutional Affiliation</label
+              >
+              <input type="text" class="form-control" id="supervisorName" />
+            </div>
+          </div>
+          <!--  -->
+          <div class="row">
+            <!-- department -->
+            <div class="mb-3 col">
+              <label for="rank" class="form-label">Department</label>
+              <input type="text" class="form-control" id="rank" />
+            </div>
+            <!-- qualifications -->
+            <div class="mb-3 col">
+              <label for="supervisorName" class="form-label"
+                >Qualifications</label>
+              <input type="text" class="form-control" id="supervisorName" />
+            </div>
+            <!-- area of specialisation -->
+            <div class="mb-3 col">
+              <label for="rank" class="form-label"
+                >Area of Specialisation</label
+              >
+              <input type="text" class="form-control" id="rank" />
+            </div>
+          </div>
+        </div>
+        <!-- Co-supervisor -->
+        <div>
+          <div class="row">
+            <!-- name of Co-Supervisor -->
+            <div class="mb-3 col">
+              <label for="coSupervisorName" class="form-label"
+                >Name of Co-Supervisor</label
+              >
+              <input type="text" class="form-control" id="coSupervisorName" />
+            </div>
+            <!-- rank -->
+            <div class="mb-3 col">
+              <label for="rank" class="form-label">Rank</label>
+              <input type="text" class="form-control" id="rank" />
+            </div>
+            <!-- institutional affiliation -->
+            <div class="mb-3 col">
+              <label for="supervisorName" class="form-label"
+                >Institutional Affiliation</label>
+              <input type="text" class="form-control" id="supervisorName" />
+            </div>
+          </div>
+          <!--  -->
+          <div class="row">
+            <!-- department -->
+            <div class="mb-3 col">
+              <label for="rank" class="form-label">Department</label>
+              <input type="text" class="form-control" id="rank" />
+            </div>
+            <!-- qualifications -->
+            <div class="mb-3 col">
+              <label for="supervisorName" class="form-label"
+                >Qualifications</label>
+              <input type="text" class="form-control" id="supervisorName" />
+            </div>
+            <!-- area of specialisation -->
+            <div class="mb-3 col">
+              <label for="rank" class="form-label"
+                >Area of Specialisation</label
+              >
+              <input type="text" class="form-control" id="rank" />
+            </div>
+          </div>
+        </div>
+        <!-- comment -->
+        <p class="comment">Comment</p>
+        <textarea
+          class="commentSection"
+          id="comments"
+          name="comments"
+          rows="4"
+          cols="50"
+          maxlength="10"
+          oninput="updateCharCount()"
+        ></textarea>
+        <p class="char-counter" id="charCounter">10 characters remaining</p>
+
+        <!-- submit button -->
+        <div class="btnContainer">
+          <button type="submit" class="btn" name = "submit">Submit</button>
+        </div>
+      </form>
+      <?php } ?>
+    </div>
+
+    <script>
+      function updateCharCount() {
+        const textarea = document.getElementById('comments');
+        const charCounter = document.getElementById('charCounter');
+        const maxLength = textarea.maxLength;
+        const currentLength = textarea.value.length;
+
+        const remaining = maxLength - currentLength;
+
+        charCounter.textContent = remaining + ' characters remaining';
+
+        if (remaining < 5) {
+          charCounter.classList.add('warning');
+        } else {
+          charCounter.classList.remove('warning');
+        }
+      }
+    </script>
+
+    <script src="./js/form.js"></script>
+    <!--  -->
+    <script src="./js/jquery-3.7.1.js"></script>
+    <!--  -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <!--  -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+      integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
