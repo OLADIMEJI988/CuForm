@@ -77,9 +77,11 @@
     transform: scale(0.8);
 }
 .error{
-    color: red;
     font-size: 13px;
     opacity: 0.8;
+}
+.coSupe, .supe{
+    margin-top: 30px;
 }
 /* .char-counter {
     font-size: 14px;
