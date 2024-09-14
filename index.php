@@ -33,7 +33,7 @@ if (isset($_POST['studName'])) {
 if (isset($_POST['supervisorName'])) {
   $name = mysqli_real_escape_string($conn, $_POST['supervisorName']);
   
-  // Query for student information based on the given name
+  // Query for supervisor information based on the given name
   $sqlSupervisors = "SELECT * FROM supervisors_info WHERE name = '$name' LIMIT 1";
   $supervisorResult = mysqli_query($conn, $sqlSupervisors);
 
@@ -46,6 +46,27 @@ if (isset($_POST['supervisorName'])) {
 
   // Free result set and close connection for AJAX request
   mysqli_free_result($supervisorResult);
+  mysqli_close($conn);
+  exit();
+}
+
+// Handle AJAX request for co-supervisor info
+if (isset($_POST['coSupervisorName'])) {
+  $name = mysqli_real_escape_string($conn, $_POST['coSupervisorName']);
+  
+  // Query for co-supervisor information based on the given name
+  $sqlCoSupervisors = "SELECT * FROM co_supervisors_info WHERE name = '$name' LIMIT 1";
+  $coSupervisorResult = mysqli_query($conn, $sqlCoSupervisors);
+
+  if (mysqli_num_rows($coSupervisorResult) > 0) {
+      $coSupervisorInfo = mysqli_fetch_assoc($coSupervisorResult);
+      echo json_encode($coSupervisorInfo);
+  } else {
+      echo json_encode(['coSupervisorError' => 'No co-supervisor found with that name.']);
+  }
+
+  // Free result set and close connection for AJAX request
+  mysqli_free_result($coSupervisorResult);
   mysqli_close($conn);
   exit();
 }
@@ -75,6 +96,11 @@ if (isset($_POST['supervisorName'])) {
         color: red;
       }
       .supervisorError {
+        color: red;
+        font-size: 13px;
+        opacity: 0.8;
+      }
+      .coSupervisorError {
         color: red;
         font-size: 13px;
         opacity: 0.8;
@@ -210,13 +236,7 @@ if (isset($_POST['supervisorName'])) {
           <label for="thesis" class="form-label"
             >Proposed Title of Thesis</label
           >
-          <input
-            type="text"
-            class="form-control"
-            id="thesis"
-            name="thesis"
-            readonly
-          />
+          <input type="text" class="form-control" id="thesis" name="thesis" />
         </div>
 
         <!--  -->
@@ -229,7 +249,13 @@ if (isset($_POST['supervisorName'])) {
               <label for="supervisorName" class="form-label"
                 >Name of Supervisor</label
               >
-              <input type="text" class="form-control" id="supervisorName" name="supervisorName" list="search-option" />
+              <input
+                type="text"
+                class="form-control"
+                id="supervisorName"
+                name="supervisorName"
+                list="search-option"
+              />
 
               <datalist id="search-option">
                 <option value="Dr. Chinedu Okafor"></option>
@@ -243,40 +269,73 @@ if (isset($_POST['supervisorName'])) {
             </div>
             <!-- rank -->
             <div class="mb-3 col">
-              <label for="rank" class="form-label">Rank</label>
-              <input type="text" class="form-control" id="supervisorRank" name="supervisorRank" readonly />
+              <label for="supervisorRank" class="form-label">Rank</label>
+              <input
+                type="text"
+                class="form-control"
+                id="supervisorRank"
+                name="supervisorRank"
+                readonly
+              />
             </div>
             <!-- institutional affiliation -->
             <div class="mb-3 col">
-              <label for="supervisorName" class="form-label"
+              <label for="supervisorAffiliation" class="form-label"
                 >Institutional Affiliation</label
               >
-              <input type="text" class="form-control" id="supervisorAffiliation" name="supervisorAffiliation" readonly />
+              <input
+                type="text"
+                class="form-control"
+                id="supervisorAffiliation"
+                name="supervisorAffiliation"
+                readonly
+              />
             </div>
           </div>
           <!--  -->
           <div class="row">
             <!-- department -->
             <div class="mb-3 col">
-              <label for="rank" class="form-label">Department</label>
-              <input type="text" class="form-control" id="supervisorDepartment" name="supervisorDepartment" readonly />
+              <label for="supervisorDepartment" class="form-label"
+                >Department</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="supervisorDepartment"
+                name="supervisorDepartment"
+                readonly
+              />
             </div>
             <!-- qualifications -->
             <div class="mb-3 col">
-              <label for="supervisorName" class="form-label"
+              <label for="supervisorQualification" class="form-label"
                 >Qualifications</label
               >
-              <input type="text" class="form-control" id="supervisorQualification" name="supervisorQualification" readonly />
+              <input
+                type="text"
+                class="form-control"
+                id="supervisorQualification"
+                name="supervisorQualification"
+                readonly
+              />
             </div>
             <!-- area of specialisation -->
             <div class="mb-3 col">
-              <label for="rank" class="form-label"
+              <label for="supervisorSpecialisation" class="form-label"
                 >Area of Specialisation</label
               >
-              <input type="text" class="form-control" id="supervisorSpecialisation" name="supervisorSpecialisation" readonly />
+              <input
+                type="text"
+                class="form-control"
+                id="supervisorSpecialisation"
+                name="supervisorSpecialisation"
+                readonly
+              />
             </div>
           </div>
         </div>
+
         <!-- Co-supervisor -->
         <div class="coSupe">
           <div class="row">
@@ -285,41 +344,88 @@ if (isset($_POST['supervisorName'])) {
               <label for="coSupervisorName" class="form-label"
                 >Name of Co-Supervisor</label
               >
-              <input type="text" class="form-control" id="coSupervisorName" />
+              <input
+                type="text"
+                class="form-control"
+                id="coSupervisorName"
+                name="coSupervisorName"
+                list="searchOption"
+              />
+              <datalist id="searchOption">
+                <option value="Sholanke Oladimeji"></option>
+                <option value="Dr. Ifeanyi Nwankwo"></option>
+                <option value="Prof. Amina Bello"></option>
+                <option value="Dr. John Adeyemi"></option>
+                <option value="Dr. Funmi Akintunde"></option>
+              </datalist>
+
+              <p class="coSupervisorError" id="coSupervisorError"></p>
             </div>
             <!-- rank -->
             <div class="mb-3 col">
-              <label for="rank" class="form-label">Rank</label>
-              <input type="text" class="form-control" id="rank" />
+              <label for="coSupervisorRank" class="form-label">Rank</label>
+              <input
+                type="text"
+                class="form-control"
+                id="coSupervisorRank"
+                name="coSupervisorRank"
+                readonly
+              />
             </div>
             <!-- institutional affiliation -->
             <div class="mb-3 col">
-              <label for="supervisorName" class="form-label"
+              <label for="coSupervisorAffiliation" class="form-label"
                 >Institutional Affiliation</label
               >
-              <input type="text" class="form-control" id="supervisorName" />
+              <input
+                type="text"
+                class="form-control"
+                id="coSupervisorAffiliation"
+                name="coSupervisorAffiliation"
+                readonly
+              />
             </div>
           </div>
           <!--  -->
           <div class="row">
             <!-- department -->
             <div class="mb-3 col">
-              <label for="rank" class="form-label">Department</label>
-              <input type="text" class="form-control" id="rank" />
+              <label for="coSupervisorDepartment" class="form-label"
+                >Department</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="coSupervisorDepartment"
+                name="coSupervisorDepartment"
+                readonly
+              />
             </div>
             <!-- qualifications -->
             <div class="mb-3 col">
-              <label for="supervisorName" class="form-label"
+              <label for="coSupervisorQualification" class="form-label"
                 >Qualifications</label
               >
-              <input type="text" class="form-control" id="supervisorName" />
+              <input
+                type="text"
+                class="form-control"
+                id="coSupervisorQualification"
+                name="coSupervisorQualification"
+                readonly
+              />
             </div>
             <!-- area of specialisation -->
             <div class="mb-3 col">
-              <label for="rank" class="form-label"
+              <label for="coSupervisorSpecialisation" class="form-label"
                 >Area of Specialisation</label
               >
-              <input type="text" class="form-control" id="rank" />
+              <input
+                type="text"
+                class="form-control"
+                id="coSupervisorSpecialisation"
+                name="coSupervisorSpecialisation"
+                readonly
+              />
             </div>
           </div>
         </div>
@@ -358,66 +464,105 @@ if (isset($_POST['supervisorName'])) {
       }
 
       // AJAX function to fetch student details when the name is entered
-      document.getElementById("studName").addEventListener("input", function () {
-        const name = this.value;
-        if (name.trim() === "") return;
+      document
+        .getElementById("studName")
+        .addEventListener("input", function () {
+          const name = this.value;
+          if (name.trim() === "") return;
 
-        // Send AJAX request to PHP backend
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", "index.php", true);
-        xhr.setRequestHeader(
-          "Content-type",
-          "application/x-www-form-urlencoded"
-        );
+          // Send AJAX request to PHP backend
+          const xhr = new XMLHttpRequest();
+          xhr.open("POST", "index.php", true);
+          xhr.setRequestHeader(
+            "Content-type",
+            "application/x-www-form-urlencoded"
+          );
 
-        xhr.onload = function () {
-          if (this.status === 200) {
-            const response = JSON.parse(this.responseText);
+          xhr.onload = function () {
+            if (this.status === 200) {
+              const response = JSON.parse(this.responseText);
 
-            // Check for error in response
-            if (response.error) {
-              document.getElementById("error").textContent = response.error;
-              clearFormFields();
-            } else {
-              populateFormFields(response);
-              document.getElementById("error").textContent = "";
+              // Check for error in response
+              if (response.error) {
+                document.getElementById("error").textContent = response.error;
+                clearFormFields();
+              } else {
+                populateFormFields(response);
+                document.getElementById("error").textContent = "";
+              }
             }
-          }
-        };
+          };
 
-        xhr.send("studName=" + encodeURIComponent(name));
-      });
+          xhr.send("studName=" + encodeURIComponent(name));
+        });
 
-        // AJAX function to fetch supervisor details when the name is entered
-        document.getElementById("supervisorName").addEventListener("input", function () {
-        const name = this.value;
-        if (name.trim() === "") return;
+      // AJAX function to fetch supervisor details when the name is entered
+      document
+        .getElementById("supervisorName")
+        .addEventListener("input", function () {
+          const name = this.value;
+          if (name.trim() === "") return;
 
-        // Send AJAX request to PHP backend
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", "index.php", true);
-        xhr.setRequestHeader(
-          "Content-type",
-          "application/x-www-form-urlencoded"
-        );
+          // Send AJAX request to PHP backend
+          const xhr = new XMLHttpRequest();
+          xhr.open("POST", "index.php", true);
+          xhr.setRequestHeader(
+            "Content-type",
+            "application/x-www-form-urlencoded"
+          );
 
-        xhr.onload = function () {
-          if (this.status === 200) {
-            const response = JSON.parse(this.responseText);
+          xhr.onload = function () {
+            if (this.status === 200) {
+              const response = JSON.parse(this.responseText);
 
-            //Check for error in response
-            if (response.supervisorError) {
-              document.getElementById("supervisorError").textContent = response.supervisorError;
-              clearSupervisorFormFields();
-            } else {
-              populateSupervisorFormFields(response);
-              document.getElementById("supervisorError").textContent = "";
+              //Check for error in response
+              if (response.supervisorError) {
+                document.getElementById("supervisorError").textContent =
+                  response.supervisorError;
+                clearSupervisorFormFields();
+              } else {
+                populateSupervisorFormFields(response);
+                document.getElementById("supervisorError").textContent = "";
+              }
             }
-          }
-        };
+          };
 
-        xhr.send("supervisorName=" + encodeURIComponent(name));
-      });
+          xhr.send("supervisorName=" + encodeURIComponent(name));
+        });
+
+      // AJAX function to fetch co-supervisor details when the name is entered
+      document
+        .getElementById("coSupervisorName")
+        .addEventListener("input", function () {
+          const name = this.value;
+          if (name.trim() === "") return;
+
+          // Send AJAX request to PHP backend
+          const xhr = new XMLHttpRequest();
+          xhr.open("POST", "index.php", true);
+          xhr.setRequestHeader(
+            "Content-type",
+            "application/x-www-form-urlencoded"
+          );
+
+          xhr.onload = function () {
+            if (this.status === 200) {
+              const response = JSON.parse(this.responseText);
+
+              //Check for error in response
+              if (response.coSupervisorError) {
+                document.getElementById("coSupervisorError").textContent =
+                  response.coSupervisorError;
+                clearCoSupervisorFormFields();
+              } else {
+                populateCoSupervisorFormFields(response);
+                document.getElementById("coSupervisorError").textContent = "";
+              }
+            }
+          };
+
+          xhr.send("coSupervisorName=" + encodeURIComponent(name));
+        });
 
       // Function to populate form fields with student data
       function populateFormFields(data) {
@@ -435,10 +580,27 @@ if (isset($_POST['supervisorName'])) {
       // Function to populate form fields with supervisor data
       function populateSupervisorFormFields(data) {
         document.getElementById("supervisorRank").value = data.rank || "";
-        document.getElementById("supervisorAffiliation").value = data.institutional_affiliation || "";
-        document.getElementById("supervisorDepartment").value = data.department || "";
-        document.getElementById("supervisorQualification").value = data.qualifications || "";
-        document.getElementById("supervisorSpecialisation").value = data.area_of_specialisation || "";
+        document.getElementById("supervisorAffiliation").value =
+          data.institutional_affiliation || "";
+        document.getElementById("supervisorDepartment").value =
+          data.department || "";
+        document.getElementById("supervisorQualification").value =
+          data.qualifications || "";
+        document.getElementById("supervisorSpecialisation").value =
+          data.area_of_specialisation || "";
+      }
+
+      // Function to populate form fields with co-supervisor data
+      function populateCoSupervisorFormFields(data) {
+        document.getElementById("coSupervisorRank").value = data.rank || "";
+        document.getElementById("coSupervisorAffiliation").value =
+          data.institutional_affiliation || "";
+        document.getElementById("coSupervisorDepartment").value =
+          data.department || "";
+        document.getElementById("coSupervisorQualification").value =
+          data.qualifications || "";
+        document.getElementById("coSupervisorSpecialisation").value =
+          data.area_of_specialisation || "";
       }
 
       // Function to clear form fields if no student is found
@@ -462,6 +624,14 @@ if (isset($_POST['supervisorName'])) {
         document.getElementById("supervisorSpecialisation").value = "";
       }
 
+      // Function to clear form fields if no co-supervisor is found
+      function clearCoSupervisorFormFields(data) {
+        document.getElementById("coSupervisorRank").value = "";
+        document.getElementById("coSupervisorAffiliation").value = "";
+        document.getElementById("coSupervisorDepartment").value = "";
+        document.getElementById("coSupervisorQualification").value = "";
+        document.getElementById("coSupervisorSpecialisation").value = "";
+      }
     </script>
 
     <script src="./js/form.js"></script>
