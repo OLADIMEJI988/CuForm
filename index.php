@@ -1,14 +1,14 @@
 <?php
-// connect to database
+// Connect to database
 $conn = mysqli_connect('localhost', 'sholanke', 'shinnely_JR1', 'appoint_supe');
 
-// check connection
-if(!$conn){
-  echo 'Connection error: ' . mysqli_connect_error();
+// Check connection
+if (!$conn) {
+    die('Connection error: ' . mysqli_connect_error());
 }
 
 // Handle AJAX request for student info
-if (isset($_POST['studName'])) {
+if (isset($_POST['studName']) && empty($_POST['supervisorName']) && empty($_POST['coSupervisorName'])) {
     $name = mysqli_real_escape_string($conn, $_POST['studName']);
     
     // Query for student information based on the given name
@@ -28,50 +28,92 @@ if (isset($_POST['studName'])) {
     exit();
 }
 
-
 // Handle AJAX request for supervisor info
-if (isset($_POST['supervisorName'])) {
-  $name = mysqli_real_escape_string($conn, $_POST['supervisorName']);
-  
-  // Query for supervisor information based on the given name
-  $sqlSupervisors = "SELECT * FROM supervisors_info WHERE name = '$name' LIMIT 1";
-  $supervisorResult = mysqli_query($conn, $sqlSupervisors);
+if (isset($_POST['supervisorName']) && empty($_POST['studName']) && empty($_POST['coSupervisorName'])) {
+    $name = mysqli_real_escape_string($conn, $_POST['supervisorName']);
+    
+    // Query for supervisor information based on the given name
+    $sqlSupervisors = "SELECT * FROM supervisors_info WHERE name = '$name' LIMIT 1";
+    $supervisorResult = mysqli_query($conn, $sqlSupervisors);
 
-  if (mysqli_num_rows($supervisorResult) > 0) {
-      $supervisorInfo = mysqli_fetch_assoc($supervisorResult);
-      echo json_encode($supervisorInfo);
-  } else {
-      echo json_encode(['supervisorError' => 'No supervisor found with that name.']);
-  }
+    if (mysqli_num_rows($supervisorResult) > 0) {
+        $supervisorInfo = mysqli_fetch_assoc($supervisorResult);
+        echo json_encode($supervisorInfo);
+    } else {
+        echo json_encode(['supervisorError' => 'No supervisor found with that name.']);
+    }
 
-  // Free result set and close connection for AJAX request
-  mysqli_free_result($supervisorResult);
-  mysqli_close($conn);
-  exit();
+    // Free result set and close connection for AJAX request
+    mysqli_free_result($supervisorResult);
+    mysqli_close($conn);
+    exit();
 }
 
 // Handle AJAX request for co-supervisor info
-if (isset($_POST['coSupervisorName'])) {
-  $name = mysqli_real_escape_string($conn, $_POST['coSupervisorName']);
-  
-  // Query for co-supervisor information based on the given name
-  $sqlCoSupervisors = "SELECT * FROM co_supervisors_info WHERE name = '$name' LIMIT 1";
-  $coSupervisorResult = mysqli_query($conn, $sqlCoSupervisors);
+if (isset($_POST['coSupervisorName']) && empty($_POST['studName']) && empty($_POST['supervisorName'])) {
+    $name = mysqli_real_escape_string($conn, $_POST['coSupervisorName']);
+    
+    // Query for co-supervisor information based on the given name
+    $sqlCoSupervisors = "SELECT * FROM co_supervisors_info WHERE name = '$name' LIMIT 1";
+    $coSupervisorResult = mysqli_query($conn, $sqlCoSupervisors);
 
-  if (mysqli_num_rows($coSupervisorResult) > 0) {
-      $coSupervisorInfo = mysqli_fetch_assoc($coSupervisorResult);
-      echo json_encode($coSupervisorInfo);
-  } else {
-      echo json_encode(['coSupervisorError' => 'No co-supervisor found with that name.']);
-  }
+    if (mysqli_num_rows($coSupervisorResult) > 0) {
+        $coSupervisorInfo = mysqli_fetch_assoc($coSupervisorResult);
+        echo json_encode($coSupervisorInfo);
+    } else {
+        echo json_encode(['coSupervisorError' => 'No co-supervisor found with that name.']);
+    }
 
-  // Free result set and close connection for AJAX request
-  mysqli_free_result($coSupervisorResult);
-  mysqli_close($conn);
-  exit();
+    // Free result set and close connection for AJAX request
+    mysqli_free_result($coSupervisorResult);
+    mysqli_close($conn);
+    exit();
 }
 
+// Check if the form is submitted
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Retrieve and sanitize data from the form
+    $studName = mysqli_real_escape_string($conn, $_POST['studName']);
+    $studMatricNum = mysqli_real_escape_string($conn, $_POST['matricNum']);
+    $studProgramme = mysqli_real_escape_string($conn, $_POST['programme']);
+    $studCollege = mysqli_real_escape_string($conn, $_POST['college']);
+    $studDegree = mysqli_real_escape_string($conn, $_POST['degree']);
+    $firstReg = mysqli_real_escape_string($conn, $_POST['firstReg']);
+    $recentReg = mysqli_real_escape_string($conn, $_POST['recentReg']);
+    $approvalDate = mysqli_real_escape_string($conn, $_POST['approvalDate']);
+    $studThesis = mysqli_real_escape_string($conn, $_POST['thesis']);
+    $supervisorName = mysqli_real_escape_string($conn, $_POST['supervisorName']);
+    $supervisorRank = mysqli_real_escape_string($conn, $_POST['supervisorRank']);
+    $supervisorAffiliation = mysqli_real_escape_string($conn, $_POST['supervisorAffiliation']);
+    $supervisorDepartment = mysqli_real_escape_string($conn, $_POST['supervisorDepartment']);
+    $supervisorQualification = mysqli_real_escape_string($conn, $_POST['supervisorQualification']);
+    $supervisorSpecialisation = mysqli_real_escape_string($conn, $_POST['supervisorSpecialisation']);
+    $coSupervisorName = mysqli_real_escape_string($conn, $_POST['coSupervisorName']);
+    $coSupervisorRank = mysqli_real_escape_string($conn, $_POST['coSupervisorRank']);
+    $coSupervisorAffiliation = mysqli_real_escape_string($conn, $_POST['coSupervisorAffiliation']);
+    $coSupervisorDepartment = mysqli_real_escape_string($conn, $_POST['coSupervisorDepartment']);
+    $coSupervisorQualification = mysqli_real_escape_string($conn, $_POST['coSupervisorQualification']);
+    $coSupervisorSpecialisation = mysqli_real_escape_string($conn, $_POST['coSupervisorSpecialisation']);
+    $comments = mysqli_real_escape_string($conn, $_POST['comments']);
+
+    // Prepare the SQL query to insert data into the combined_table
+    $sqlInsert = "INSERT INTO recommendation_of_supervisors 
+                  (stud_name, matric_num, programme, college, degree, first_reg_date, recent_reg_date, senate_approval_date, thesis_title, supervisor_name, supervisor_rank, supervisor_institutional_affiliation, supervisor_department, supervisor_qualifications, supervisor_area_of_specialisation, co_supervisor_name, co_supervisor_rank, co_supervisor_institutional_affiliation, co_supervisor_department, co_supervisor_qualifications, co_supervisor_area_of_specialisation, comment)
+                  VALUES 
+                  ('$studName', '$studMatricNum', '$studProgramme', '$studCollege', '$studDegree', '$firstReg', '$recentReg', '$approvalDate', '$studThesis', '$supervisorName', '$supervisorRank', '$supervisorAffiliation', '$supervisorDepartment', '$supervisorQualification', '$supervisorSpecialisation', '$coSupervisorName', '$coSupervisorRank', '$coSupervisorAffiliation', '$coSupervisorDepartment', '$coSupervisorQualification', '$coSupervisorSpecialisation', '$comments')";
+
+    // Execute the query and check for success
+    if (mysqli_query($conn, $sqlInsert)) {
+        echo 'Data stored successfully!';
+    } else {
+        echo 'Error: ' . mysqli_error($conn);
+    }
+
+    // Close the database connection
+    mysqli_close($conn);
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -83,7 +125,7 @@ if (isset($_POST['coSupervisorName'])) {
       rel="stylesheet"
       href="node_modules/bootstrap/dist/css/bootstrap.css"
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="./styles.css" />
     <style>
       .char-counter {
         font-size: 14px;
@@ -108,17 +150,20 @@ if (isset($_POST['coSupervisorName'])) {
     </style>
   </head>
   <body>
-    <p class="title text-center">
-      Recommendation for Appointment of Supervisors
-    </p>
+    <div class="title">
+     <p>
+       Recommendation for Appointment of Supervisors
+     </p>
+    </div>
+
     <div class="form border mx-auto">
       <img class="logo" src="./img/CU_LOGO.jpg" alt="" />
 
-      <form id="studentForm" action="index.php" method="POST">
+      <form id="dataForm" action="index.php" method="POST">
         <div class="row">
           <!-- Name -->
           <div class="mb-3 col">
-            <label for="name" class="form-label">Name</label>
+            <label for="studName" class="form-label">Name</label>
             <input
               type="text"
               class="form-control"
@@ -138,11 +183,11 @@ if (isset($_POST['coSupervisorName'])) {
 
           <!-- Matric -->
           <div class="mb-3 col">
-            <label for="matric_num" class="form-label">Matriculation</label>
+            <label for="matricNum" class="form-label">Matriculation</label>
             <input
               type="text"
               class="form-control"
-              id="matric_num"
+              id="matricNum"
               name="matricNum"
               readonly
             />
@@ -190,7 +235,7 @@ if (isset($_POST['coSupervisorName'])) {
         </div>
 
         <!-- DATES -->
-        <div class="row">
+        <div class="row dates-container">
           <div class="mb-3 col">
             <label for="firstReg" class="form-label-date"
               >Date of First Registration</label
@@ -431,17 +476,19 @@ if (isset($_POST['coSupervisorName'])) {
         </div>
 
         <!-- Comment -->
-        <p class="comment">Comment</p>
-        <textarea
-          class="commentSection"
-          id="comments"
-          name="comments"
-          rows="4"
-          cols="50"
-          maxlength="20"
-          oninput="updateCharCount()"
-        ></textarea>
-        <p class="char-counter" id="charCounter">20 characters remaining</p>
+        <div class="comment-container">
+          <label for="comments" class="commentTxt">Comment</label>
+          <textarea
+            class="commentSection"
+            id="comments"
+            name="comments"
+            rows="4"
+            cols="80"
+            maxlength="20"
+            oninput="updateCharCount()"
+          ></textarea>
+          <p class="char-counter" id="charCounter">20 characters remaining</p>
+        </div>
 
         <!-- Submit button -->
         <div class="btnContainer">
@@ -566,7 +613,7 @@ if (isset($_POST['coSupervisorName'])) {
 
       // Function to populate form fields with student data
       function populateFormFields(data) {
-        document.getElementById("matric_num").value = data.matric_num || "";
+        document.getElementById("matricNum").value = data.matric_num || "";
         document.getElementById("programme").value = data.programme || "";
         document.getElementById("college").value = data.college || "";
         document.getElementById("degree").value = data.degree || "";
@@ -605,7 +652,7 @@ if (isset($_POST['coSupervisorName'])) {
 
       // Function to clear form fields if no student is found
       function clearFormFields() {
-        document.getElementById("matric_num").value = "";
+        document.getElementById("matricNum").value = "";
         document.getElementById("programme").value = "";
         document.getElementById("college").value = "";
         document.getElementById("degree").value = "";
@@ -634,7 +681,6 @@ if (isset($_POST['coSupervisorName'])) {
       }
     </script>
 
-    <script src="./js/form.js"></script>
     <!--  -->
     <script src="./js/jquery-3.7.1.js"></script>
     <!--  -->

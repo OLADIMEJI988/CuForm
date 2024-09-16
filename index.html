@@ -1,78 +1,3 @@
-<?php
-// connect to database
-$conn = mysqli_connect('localhost', 'sholanke', 'shinnely_JR1', 'appoint_supe');
-
-// check connection
-if(!$conn){
-  echo 'Connection error: ' . mysqli_connect_error();
-}
-
-// Handle AJAX request for student info
-if (isset($_POST['studName'])) {
-    $name = mysqli_real_escape_string($conn, $_POST['studName']);
-    
-    // Query for student information based on the given name
-    $sqlStudents = "SELECT * FROM stud_info WHERE name = '$name' LIMIT 1";
-    $studentResult = mysqli_query($conn, $sqlStudents);
-
-    if (mysqli_num_rows($studentResult) > 0) {
-        $studInfo = mysqli_fetch_assoc($studentResult);
-        echo json_encode($studInfo);
-    } else {
-        echo json_encode(['error' => 'No student found with that name.']);
-    }
-
-    // Free result set and close connection for AJAX request
-    mysqli_free_result($studentResult);
-    mysqli_close($conn);
-    exit();
-}
-
-
-// Handle AJAX request for supervisor info
-if (isset($_POST['supervisorName'])) {
-  $name = mysqli_real_escape_string($conn, $_POST['supervisorName']);
-  
-  // Query for supervisor information based on the given name
-  $sqlSupervisors = "SELECT * FROM supervisors_info WHERE name = '$name' LIMIT 1";
-  $supervisorResult = mysqli_query($conn, $sqlSupervisors);
-
-  if (mysqli_num_rows($supervisorResult) > 0) {
-      $supervisorInfo = mysqli_fetch_assoc($supervisorResult);
-      echo json_encode($supervisorInfo);
-  } else {
-      echo json_encode(['supervisorError' => 'No supervisor found with that name.']);
-  }
-
-  // Free result set and close connection for AJAX request
-  mysqli_free_result($supervisorResult);
-  mysqli_close($conn);
-  exit();
-}
-
-// Handle AJAX request for co-supervisor info
-if (isset($_POST['coSupervisorName'])) {
-  $name = mysqli_real_escape_string($conn, $_POST['coSupervisorName']);
-  
-  // Query for co-supervisor information based on the given name
-  $sqlCoSupervisors = "SELECT * FROM co_supervisors_info WHERE name = '$name' LIMIT 1";
-  $coSupervisorResult = mysqli_query($conn, $sqlCoSupervisors);
-
-  if (mysqli_num_rows($coSupervisorResult) > 0) {
-      $coSupervisorInfo = mysqli_fetch_assoc($coSupervisorResult);
-      echo json_encode($coSupervisorInfo);
-  } else {
-      echo json_encode(['coSupervisorError' => 'No co-supervisor found with that name.']);
-  }
-
-  // Free result set and close connection for AJAX request
-  mysqli_free_result($coSupervisorResult);
-  mysqli_close($conn);
-  exit();
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -83,7 +8,7 @@ if (isset($_POST['coSupervisorName'])) {
       rel="stylesheet"
       href="node_modules/bootstrap/dist/css/bootstrap.css"
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="./styles.css" />
     <style>
       .char-counter {
         font-size: 14px;
@@ -431,17 +356,19 @@ if (isset($_POST['coSupervisorName'])) {
         </div>
 
         <!-- Comment -->
-        <p class="comment">Comment</p>
-        <textarea
-          class="commentSection"
-          id="comments"
-          name="comments"
-          rows="4"
-          cols="50"
-          maxlength="20"
-          oninput="updateCharCount()"
-        ></textarea>
-        <p class="char-counter" id="charCounter">20 characters remaining</p>
+        <div class="comment-container">
+          <p class="commentTxt">Comment</p>
+          <textarea
+            class="commentSection"
+            id="comments"
+            name="comments"
+            rows="4"
+            cols="80"
+            maxlength="20"
+            oninput="updateCharCount()"
+          ></textarea>
+          <p class="char-counter" id="charCounter">20 characters remaining</p>
+        </div>
 
         <!-- Submit button -->
         <div class="btnContainer">

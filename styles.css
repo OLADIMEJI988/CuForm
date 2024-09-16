@@ -3,8 +3,14 @@
     width: 100vw;
     background-size: cover;
 } */
+
+/* import fonts from fonts css file */
+@import url(./fonts.css);
+
+
  body{
     background-color: rgb(45 47 58);
+    font-family: "Roboto", cursive !important;
  }
  .title{
     color: rgb(255 255 253);
@@ -12,6 +18,10 @@
     font-weight: 500;
     margin-top: 4rem;
     font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
  }
 .logo{
     display: block;
@@ -35,6 +45,8 @@
 } */
 .form-label{
     font-weight: 500;
+    text-transform: uppercase;
+    margin-top: 5px;
 }
 .form-label-date{
     font-size: 14px;
@@ -45,11 +57,28 @@
     font-size: 15px;
     font-weight: 500;
 }
+.dates-container{
+    margin-top: 25px;
+    margin-bottom: 5px;
+}
 .recommendationTxt{
     font-weight: 500;
     text-transform: uppercase;
+    margin-top: 20px;
+
 }
-.comment{
+
+.comment-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    height: 300px; 
+    padding-top: 20px;
+}
+
+.commentTxt{
     font-weight: 500;
 }
 .commentSection{
@@ -57,6 +86,8 @@
     border-radius: 10px;
     padding: 10px 15px;
     font-weight: 500;
+    width: 80%;
+    max-width: 600px;
 }
 .btn{
     background-color: rgb(45 47 58);
@@ -81,7 +112,7 @@
     opacity: 0.8;
 }
 .coSupe, .supe{
-    margin-top: 30px;
+    margin-top: 20px;
 }
 /* .char-counter {
     font-size: 14px;
