@@ -102,11 +102,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                   VALUES 
                   ('$studName', '$studMatricNum', '$studProgramme', '$studCollege', '$studDegree', '$firstReg', '$recentReg', '$approvalDate', '$studThesis', '$supervisorName', '$supervisorRank', '$supervisorAffiliation', '$supervisorDepartment', '$supervisorQualification', '$supervisorSpecialisation', '$coSupervisorName', '$coSupervisorRank', '$coSupervisorAffiliation', '$coSupervisorDepartment', '$coSupervisorQualification', '$coSupervisorSpecialisation', '$comments')";
 
+    $message = 'Data stored successfully!';
+
     // Execute the query and check for success
     if (mysqli_query($conn, $sqlInsert)) {
-        echo 'Data stored successfully!';
+      // alert success message ($message)
     } else {
-        echo 'Error: ' . mysqli_error($conn);
+      alert ('Error: ' . mysqli_error($conn));
     }
 
     // Close the database connection
@@ -150,6 +152,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </style>
   </head>
   <body>
+    <!-- generate the alert success message -->
+   <?php if (isset($message)): ?>
+      <script>
+        alert('<?php echo $message; ?>');
+      </script>
+    <?php endif; ?>
+    <!-- alert ends -->
+
     <div class="title">
      <p>
        Recommendation for Appointment of Supervisors
