@@ -608,8 +608,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
               //Check for error in response
               if (response.coSupervisorError) {
-                document.getElementById("coSupervisorError").textContent =
-                  response.coSupervisorError;
+                document.getElementById("coSupervisorError").textContent = response.coSupervisorError;
                 clearCoSupervisorFormFields();
               } else {
                 populateCoSupervisorFormFields(response);
@@ -629,35 +628,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         document.getElementById("degree").value = data.degree || "";
         document.getElementById("firstReg").value = data.first_reg_date || "";
         document.getElementById("recentReg").value = data.recent_reg_date || "";
-        document.getElementById("approvalDate").value =
-          data.senate_approval_date || "";
+        document.getElementById("approvalDate").value = data.senate_approval_date || "";
         document.getElementById("thesis").value = data.thesis || "";
       }
 
       // Function to populate form fields with supervisor data
       function populateSupervisorFormFields(data) {
         document.getElementById("supervisorRank").value = data.rank || "";
-        document.getElementById("supervisorAffiliation").value =
-          data.institutional_affiliation || "";
-        document.getElementById("supervisorDepartment").value =
-          data.department || "";
-        document.getElementById("supervisorQualification").value =
-          data.qualifications || "";
-        document.getElementById("supervisorSpecialisation").value =
-          data.area_of_specialisation || "";
+        document.getElementById("supervisorAffiliation").value = data.institutional_affiliation || "";
+        document.getElementById("supervisorDepartment").value = data.department || "";
+        document.getElementById("supervisorQualification").value = data.qualifications || "";
+        document.getElementById("supervisorSpecialisation").value = data.area_of_specialisation || "";
       }
 
       // Function to populate form fields with co-supervisor data
       function populateCoSupervisorFormFields(data) {
         document.getElementById("coSupervisorRank").value = data.rank || "";
-        document.getElementById("coSupervisorAffiliation").value =
-          data.institutional_affiliation || "";
-        document.getElementById("coSupervisorDepartment").value =
-          data.department || "";
-        document.getElementById("coSupervisorQualification").value =
-          data.qualifications || "";
-        document.getElementById("coSupervisorSpecialisation").value =
-          data.area_of_specialisation || "";
+        document.getElementById("coSupervisorAffiliation").value = data.institutional_affiliation || "";
+        document.getElementById("coSupervisorDepartment").value = data.department || "";
+        document.getElementById("coSupervisorQualification").value = data.qualifications || "";
+        document.getElementById("coSupervisorSpecialisation").value = data.area_of_specialisation || "";
       }
 
       // Function to clear form fields if no student is found
