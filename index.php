@@ -102,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 VALUES 
                 ('$studName', '$studMatricNum', '$studProgramme', '$studCollege', '$studDegree', '$firstReg', '$recentReg', '$approvalDate', '$studThesis', '$supervisorName', '$supervisorRank', '$supervisorAffiliation', '$supervisorDepartment', '$supervisorQualification', '$supervisorSpecialisation', '$coSupervisorName', '$coSupervisorRank', '$coSupervisorAffiliation', '$coSupervisorDepartment', '$coSupervisorQualification', '$coSupervisorSpecialisation', '$comments')";
 
- $message = 'Data stored successfully!';
+ $message = 'Submitted successfully!';
 
   // Execute the query and check for success
   if (mysqli_query($conn, $sqlInsert)) {
