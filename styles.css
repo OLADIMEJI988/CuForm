@@ -114,6 +114,14 @@
     opacity: 0.8;
 }
 
-.coSupe, .supe{
+.supe{
     margin-top: 20px;
+}
+
+.coSupe{
+    margin-top: 40px;
+}
+
+.qual{
+    margin-top: 10px;
 }

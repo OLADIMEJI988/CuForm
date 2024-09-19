@@ -370,7 +370,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
           </div>
           <!-- qualifications -->
-          <div class="mb-3 col">
+          <div class="mb-3 col qual">
             <label for="supervisorQualification" class="form-label"
               >Qualifications</label
             >
@@ -464,7 +464,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
           </div>
           <!-- qualifications -->
-          <div class="col">
+          <div class="col qual">
             <label for="coSupervisorQualification" class="form-label"
               >Qualifications</label
             >
