@@ -8,15 +8,10 @@
  }
 
  .title{
-    color: rgb(255 255 253);
     text-transform: uppercase;
     font-weight: 500;
-    margin-top: 4rem;
     font-size: 18px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    margin-bottom: 2rem;
  }
 
 .logo{
@@ -30,17 +25,17 @@
 
 .form{
     border-radius: 10px;
-    padding: 2rem 3rem;
+    padding: 2rem 2rem;
     margin: 2.5rem 0rem;
-    width: 65pc;
+    width: 49pc;
     background-color: rgb(255 255 253);
     color: rgb(45 47 58);
 }
 
 .form-label{
     font-weight: 500;
-    text-transform: uppercase;
     margin-top: 5px;
+    font-size: 15px;
 }
 
 .form-label-date{
@@ -52,6 +47,10 @@
     border-width: 1.5px;
     font-size: 15px;
     font-weight: 500;
+}
+
+.rank{
+    width: 180px;
 }
 
 .dates-container{
@@ -72,7 +71,7 @@
     align-items: center;
     justify-content: center;
     margin: 0 auto;
-    height: 300px; 
+    height: 250px; 
     padding-top: 20px;
 }
 
