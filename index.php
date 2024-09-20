@@ -240,7 +240,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <!-- DATES -->
         <div class="row g-3 my-2">
-          <div class="col-4">
+          <div class="col">
             <label for="firstReg" class="form-label-date"
               >Date of First Registration</label
             >
@@ -253,7 +253,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             />
           </div>
 
-          <div class="col-4">
+          <div class="col">
             <label for="recentReg" class="form-label-date"
               >Date of Most Recent Registration</label
             >
@@ -266,7 +266,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             />
           </div>
 
-          <div class="col-4">
+          <div class="col">
             <label for="approvalDate" class="form-label-date"
               >Date of Senate Approval</label
             >
@@ -289,7 +289,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
 
         <!--  -->
-        <p class="recommendationTxt mt-4">Recommended Supervisors</p>
+        <p class="recommendationTxt mt-5">Recommended Supervisors</p>
         <!-- Supervisors -->
         <div>
           <div class="row g-3">
@@ -318,7 +318,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               <p class="supervisorError" id="supervisorError"></p>
             </div>
             <!-- rank -->
-            <div class="col">
+            <div class="col-3">
               <label for="supervisorRank" class="form-label">Rank</label>
               <input
                 type="text"
@@ -413,7 +413,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               <p class="coSupervisorError" id="coSupervisorError"></p>
             </div>
             <!-- rank -->
-            <div class="col">
+            <div class="col-3">
               <label for="coSupervisorRank" class="form-label">Rank</label>
               <input
                 type="text"
