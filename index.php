@@ -166,9 +166,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       <p class="text-center title">Recommendation for Appointment of Supervisors</p>
 
       <form id="dataForm" action="index.php" method="POST">
-        <div class="row">
+        <div class="row g-3">
           <!-- Name -->
-          <div class="mb-3 col-5">
+          <div class="col-5">
             <label for="studName" class="form-label">Name</label>
             <input
               type="text"
@@ -176,6 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               id="studName"
               name="studName"
               list="search-options"
+              placeholder="Select student name"
             />
             <datalist id="search-options">
               <option value="Adebayo Okeke"></option>
@@ -188,7 +189,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           </div>
 
           <!-- Matric -->
-          <div class="mb-3 col-3">
+          <div class="col-3">
             <label for="matricNum" class="form-label">Matriculation</label>
             <input
               type="text"
@@ -199,7 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             />
           </div>
           <!-- Programme -->
-          <div class="mb-3 col-4">
+          <div class="col-4">
             <label for="programme" class="form-label">Programme</label>
             <input
               type="text"
@@ -211,9 +212,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           </div>
         </div>
 
-        <div class="row">
+        <div class="row g-3">
           <!-- College -->
-          <div class="mb-3 col-6">
+          <div class="col-6">
             <label for="college" class="form-label">College</label>
             <input
               type="text"
@@ -225,7 +226,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           </div>
 
           <!-- Degree in view -->
-          <div class="mb-3 col-6">
+          <div class="col-6">
             <label for="degree" class="form-label">Degree in view</label>
             <input
               type="text"
@@ -238,8 +239,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
 
         <!-- DATES -->
-        <div class="row dates-container">
-          <div class="mb-3 col-4">
+        <div class="row g-3 my-2">
+          <div class="col-4">
             <label for="firstReg" class="form-label-date"
               >Date of First Registration</label
             >
@@ -252,7 +253,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             />
           </div>
 
-          <div class="mb-3 col-4">
+          <div class="col-4">
             <label for="recentReg" class="form-label-date"
               >Date of Most Recent Registration</label
             >
@@ -265,7 +266,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             />
           </div>
 
-          <div class="mb-3 col-4">
+          <div class="col-4">
             <label for="approvalDate" class="form-label-date"
               >Date of Senate Approval</label
             >
@@ -280,20 +281,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
 
         <!-- Thesis -->
-        <div class="mb-3">
-          <label for="thesis" class="form-label"
-            >Proposed Title of Thesis</label
+        <div class="thesis my-4">
+          <label for="thesis" class="form-label thesis_txt"
+            >Proposed Title of Thesis :</label
           >
-          <input type="text" class="form-control" id="thesis" name="thesis" />
+          <input type="text" class="form-control" id="thesis" name="thesis" placeholder="Input Title of Thesis" />
         </div>
 
         <!--  -->
-        <p class="recommendationTxt">Recommended Supervisors :</p>
+        <p class="recommendationTxt mt-4">Recommended Supervisors</p>
         <!-- Supervisors -->
-        <div class="supe">
-          <div class="row">
+        <div>
+          <div class="row g-3">
             <!-- name of supervisor -->
-            <div class="mb-3 col">
+            <div class="col">
               <label for="supervisorName" class="form-label"
                 >Name of Supervisor</label
               >
@@ -303,6 +304,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 id="supervisorName"
                 name="supervisorName"
                 list="search-option"
+                placeholder="Select supervisor name"
               />
 
               <datalist id="search-option">
@@ -316,7 +318,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               <p class="supervisorError" id="supervisorError"></p>
             </div>
             <!-- rank -->
-            <div class="mb-3 col">
+            <div class="col">
               <label for="supervisorRank" class="form-label">Rank</label>
               <input
                 type="text"
@@ -327,7 +329,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               />
             </div>
             <!-- institutional affiliation -->
-            <div class="mb-3 col">
+            <div class="col">
               <label for="supervisorAffiliation" class="form-label"
                 >Institutional Affiliation</label
               >
@@ -341,9 +343,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
           </div>
 
-          <div class="row">
+          <div class="row g-3">
             <!-- department -->
-            <div class="mb-3 col">
+            <div class="col">
               <label for="supervisorDepartment" class="form-label"
                 >Department</label
               >
@@ -356,7 +358,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               />
             </div>
             <!-- area of specialisation -->
-            <div class="mb-3 col">
+            <div class="col">
               <label for="supervisorSpecialisation" class="form-label"
                 >Area of Specialisation</label
               >
@@ -386,9 +388,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <!-- Co-supervisor -->
         <div class="coSupe">
-          <div class="row">
+          <div class="row g-3">
             <!-- name of Co-Supervisor -->
-            <div class="mb-3 col">
+            <div class="col">
               <label for="coSupervisorName" class="form-label"
                 >Name of Co-supervisor</label
               >
@@ -398,6 +400,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 id="coSupervisorName"
                 name="coSupervisorName"
                 list="searchOption"
+                placeholder="Select co-supervisor name"
               />
               <datalist id="searchOption">
                 <option value="Sholanke Oladimeji"></option>
@@ -410,7 +413,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               <p class="coSupervisorError" id="coSupervisorError"></p>
             </div>
             <!-- rank -->
-            <div class="mb-3 col">
+            <div class="col">
               <label for="coSupervisorRank" class="form-label">Rank</label>
               <input
                 type="text"
@@ -421,7 +424,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               />
             </div>
             <!-- institutional affiliation -->
-            <div class="mb-3 col">
+            <div class="col">
               <label for="coSupervisorAffiliation" class="form-label"
                 >Institutional Affiliation</label
               >
@@ -435,9 +438,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
           </div>
           <!--  -->
-          <div class="row">
+          <div class="row g-3">
             <!-- department -->
-            <div class="mb-3 col">
+            <div class="col">
               <label for="coSupervisorDepartment" class="form-label"
                 >Department</label
               >
@@ -450,7 +453,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               />
             </div>
             <!-- area of specialisation -->
-            <div class="mb-3 col">
+            <div class="col">
               <label for="coSupervisorSpecialisation" class="form-label"
                 >Area of Specialisation</label
               >
@@ -464,7 +467,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
           </div>
           <!-- qualifications -->
-          <div class="col qual">
+          <div class="mb-3 col qual">
             <label for="coSupervisorQualification" class="form-label"
               >Qualifications</label
             >
@@ -486,9 +489,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             id="comments"
             name="comments"
             rows="4"
-            cols="80"
+            cols="70"
             maxlength="20"
             oninput="updateCharCount()"
+            placeholder="Leave your remark here...."
           ></textarea>
           <p class="char-counter" id="charCounter">20 characters remaining</p>
         </div>

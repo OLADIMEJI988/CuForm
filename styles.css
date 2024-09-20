@@ -2,17 +2,21 @@
 @import url(./fonts.css);
 
 
- body{
+body{
     background-color: rgb(45 47 58);
     font-family: "Roboto", cursive !important;
- }
+}
 
- .title{
+.title{
     text-transform: uppercase;
     font-weight: 500;
     font-size: 18px;
     margin-bottom: 2rem;
- }
+}
+
+.thesis_txt{
+    width: 265px;
+}
 
 .logo{
     display: block;
@@ -49,20 +53,17 @@
     font-weight: 500;
 }
 
-.rank{
-    width: 180px;
+.thesis{
+    display: flex;
 }
 
-.dates-container{
-    margin-top: 25px;
-    margin-bottom: 5px;
+.rank{
+    width: 180px;
 }
 
 .recommendationTxt{
     font-weight: 500;
     text-transform: uppercase;
-    margin-top: 20px;
-
 }
 
 .comment-container {
@@ -114,12 +115,8 @@
     opacity: 0.8;
 }
 
-.supe{
-    margin-top: 20px;
-}
-
 .coSupe{
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .qual{
