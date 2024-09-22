@@ -34,11 +34,12 @@
     </style>
   </head>
   <body>
-    
     <div class="form border mx-auto">
       <img class="logo" src="./img/CU_LOGO.jpg" alt="" />
 
-      <p class="text-center title">Recommendation for Appointment of Supervisors</p>
+      <p class="text-center title">
+        Recommendation for Appointment of Supervisors
+      </p>
 
       <form id="dataForm" action="get_details.php" method="POST">
         <div class="row g-3">
@@ -160,7 +161,13 @@
           <label for="thesis" class="form-label thesis_txt"
             >Proposed Title of Thesis :</label
           >
-          <input type="text" class="form-control" id="thesis" name="thesis" placeholder="Input Title of Thesis" />
+          <input
+            type="text"
+            class="form-control"
+            id="thesis"
+            name="thesis"
+            placeholder="Input Title of Thesis"
+          />
         </div>
 
         <!--  -->
@@ -269,22 +276,31 @@
               <label for="coSupervisorName" class="form-label"
                 >Name of Co-supervisor</label
               >
-              <input
-                type="text"
-                class="form-control"
-                id="coSupervisorName"
-                name="coSupervisorName"
-                list="searchOption"
-                placeholder="Select co-supervisor name"
-              />
-              <datalist id="searchOption">
-                <option value="Sholanke Oladimeji"></option>
-                <option value="Dr. Ifeanyi Nwankwo"></option>
-                <option value="Prof. Amina Bello"></option>
-                <option value="Dr. John Adeyemi"></option>
-                <option value="Dr. Funmi Akintunde"></option>
-              </datalist>
+              <div class="dropdown-box">
+                <div class="selected-item form-control">
+                  <input
+                    type="text"
+                    placeholder="Select co-supervisor name"
+                    id="coSupervisorName"
+                    name="coSupervisorName"
+                    readonly
+                  />
+                </div>
 
+                <div class="dropdown-content">
+                  <div class="search-input">
+                    <input type="text" placeholder="Search" />
+                  </div>
+                  <ul id="dropdownList">
+                    <li class="dropdown-item active">Select from below</li>
+                    <li class="dropdown-item">Sholanke Oladimeji</li>
+                    <li class="dropdown-item">Dr. Ifeanyi Nwankwo</li>
+                    <li class="dropdown-item">Prof. Amina Bello</li>
+                    <li class="dropdown-item">Dr. John Adeyemi</li>
+                    <li class="dropdown-item">Dr. Funmi Akintunde</li>
+                  </ul>
+                </div>
+              </div>
               <p class="coSupervisorError" id="coSupervisorError"></p>
             </div>
             <!-- rank -->
@@ -395,6 +411,5 @@
     ></script> -->
 
     <script src="./form.js"></script>
-
   </body>
 </html>
