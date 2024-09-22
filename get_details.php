@@ -102,9 +102,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 VALUES 
                 ('$studName', '$studMatricNum', '$studProgramme', '$studCollege', '$studDegree', '$firstReg', '$recentReg', '$approvalDate', '$studThesis', '$supervisorName', '$supervisorRank', '$supervisorAffiliation', '$supervisorDepartment', '$supervisorQualification', '$supervisorSpecialisation', '$coSupervisorName', '$coSupervisorRank', '$coSupervisorAffiliation', '$coSupervisorDepartment', '$coSupervisorQualification', '$coSupervisorSpecialisation', '$comments')";
 
-//  $message = 'Submitted successfully!';
 
-  // Execute the query and check for success
+// Execute the query and check for success
   if (mysqli_query($conn, $sqlInsert)) {
     // If successful, show success message and then redirect
     echo "<script>
@@ -126,11 +125,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   mysqli_close($conn);
 }
 ?>
-
-<!-- generate the alert success message -->
-<!-- <?php if (isset($message)): ?>
-    <script>
-      alert("<?php echo $message; ?>");
-    </script>
-<?php endif; ?> -->
-<!-- alert ends -->
