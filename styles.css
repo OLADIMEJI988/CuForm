@@ -1,6 +1,9 @@
 /* import fonts from fonts css file */
 @import url(./fonts.css);
 
+*{
+    box-sizing: border-box;
+}
 
 body{
     background-color: rgb(45 47 58);
@@ -102,7 +105,7 @@ body{
 }
 
 .btn:hover{
-    background-color: rgb(113 72 138);
+    background-color: #561740;
     color: rgb(255 255 253);
 }
 
@@ -121,4 +124,124 @@ body{
 
 .qual{
     margin-top: 10px;
+}
+
+/* .form-control select{
+    width: 100%;
+    border: none !important;
+    outline: none !important; 
+} */
+  
+/* Handle focus state to prevent border showing when item is selected */
+/* .form-control select:focus,
+.form-control select:active,
+.form-control select:hover {
+    border: none !important;
+    outline: none !important;  
+} */
+  
+/* Specifically target the Bootstrap Select Picker button as well */
+/* .bootstrap-select .btn {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+} */
+  
+/* Handle focus and active states for Bootstrap Select Picker button */
+/* .bootstrap-select .btn:focus,
+.bootstrap-select .btn:active,
+.bootstrap-select .btn:focus:active {
+    border: none !important;
+    box-shadow: none !important; 
+    outline: none !important; 
+} */
+
+/* select [value=""]{
+    color: grey;
+} */
+
+.dropdown-box {
+    position: relative;
+}
+
+.dropdown-box input {
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+}
+
+.selected-item {
+    position: relative;
+    
+}
+
+.selected-item::after {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border: 2px solid;
+    border-color: transparent rgb(129, 129, 129) rgb(129, 129, 129) transparent;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-70%) rotate(45deg);
+}
+
+.selected-item,
+.selected-item input {
+    cursor: pointer;
+}
+
+/* .selected-item input{
+    border: none;
+} */
+
+.dropdown-content {
+    box-shadow: 0 5px 15px rgb(0 0 0 / 15%);
+    border-radius: 5px;
+    max-height: 231px;
+    overflow: auto;
+    display: none;
+    position: absolute;
+    z-index: 999;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    margin-top: 5px;
+}
+
+.dropdown-box.active .dropdown-content {
+    display: block;
+}
+
+.search-input{
+    padding: 5px !important;
+}
+
+.search-input input{
+    border: 2px solid rgb(222 226 230);
+    padding: 3px;
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+    font-size: 0.8rem !important;
+    padding: 9px 6px !important;
+    cursor: pointer;
+    margin-left: -18px;
+}
+
+li.hide {
+    display: none !important;
+}
+
+li:hover {
+    background-color: rgb(245, 245, 245) !important;
+}
+
+li.active {
+    background-color: rgb(86, 23, 64) !important;
+    color: rgb(245, 245, 245) !important;
 }

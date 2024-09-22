@@ -1,122 +1,3 @@
-<?php
-// Connect to database
-$conn = mysqli_connect('localhost', 'sholanke', 'shinnely_JR1', 'appoint_supe');
-
-// Check connection
-if (!$conn) {
-  die('Connection error: ' . mysqli_connect_error());
-}
-
-// Handle AJAX request for student info
-if (isset($_POST['studName']) && empty($_POST['supervisorName']) && empty($_POST['coSupervisorName'])) {
-  $name = mysqli_real_escape_string($conn, $_POST['studName']);
-    
-  // Query for student information based on the given name
-  $sqlStudents = "SELECT * FROM stud_info WHERE name = '$name' LIMIT 1";
-  $studentResult = mysqli_query($conn, $sqlStudents);
-
-  if (mysqli_num_rows($studentResult) > 0) {
-    $studInfo = mysqli_fetch_assoc($studentResult);
-    echo json_encode($studInfo);
-  } else {
-    echo json_encode(['error' => 'No student found with that name.']);
-  }
-
-  // Free result set and close connection for AJAX request
-  mysqli_free_result($studentResult);
-  mysqli_close($conn);
-  exit();
-}
-
-// Handle AJAX request for supervisor info
-if (isset($_POST['supervisorName']) && empty($_POST['studName']) && empty($_POST['coSupervisorName'])) {
-  $name = mysqli_real_escape_string($conn, $_POST['supervisorName']);
-    
-  // Query for supervisor information based on the given name
-  $sqlSupervisors = "SELECT * FROM supervisors_info WHERE name = '$name' LIMIT 1";
-  $supervisorResult = mysqli_query($conn, $sqlSupervisors);
-
-  if (mysqli_num_rows($supervisorResult) > 0) {
-    $supervisorInfo = mysqli_fetch_assoc($supervisorResult);
-    echo json_encode($supervisorInfo);
-  } else {
-    echo json_encode(['supervisorError' => 'No supervisor found with that name.']);
-  }
-
-  // Free result set and close connection for AJAX request
-  mysqli_free_result($supervisorResult);
-  mysqli_close($conn);
-  exit();
-}
-
-// Handle AJAX request for co-supervisor info
-if (isset($_POST['coSupervisorName']) && empty($_POST['studName']) && empty($_POST['supervisorName'])) {
-  $name = mysqli_real_escape_string($conn, $_POST['coSupervisorName']);
-    
-  // Query for co-supervisor information based on the given name
-  $sqlCoSupervisors = "SELECT * FROM co_supervisors_info WHERE name = '$name' LIMIT 1";
-  $coSupervisorResult = mysqli_query($conn, $sqlCoSupervisors);
-
-  if (mysqli_num_rows($coSupervisorResult) > 0) {
-    $coSupervisorInfo = mysqli_fetch_assoc($coSupervisorResult);
-    echo json_encode($coSupervisorInfo);
-  } else {
-    echo json_encode(['coSupervisorError' => 'No co-supervisor found with that name.']);
-  }
-
-  // Free result set and close connection for AJAX request
-  mysqli_free_result($coSupervisorResult);
-  mysqli_close($conn);
-  exit();
-}
-
-// Check if the form is submitted
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  // Retrieve and sanitize data from the form
-  $studName = mysqli_real_escape_string($conn, $_POST['studName']);
-  $studMatricNum = mysqli_real_escape_string($conn, $_POST['matricNum']);
-  $studProgramme = mysqli_real_escape_string($conn, $_POST['programme']);
-  $studCollege = mysqli_real_escape_string($conn, $_POST['college']);
-  $studDegree = mysqli_real_escape_string($conn, $_POST['degree']);
-  $firstReg = mysqli_real_escape_string($conn, $_POST['firstReg']);
-  $recentReg = mysqli_real_escape_string($conn, $_POST['recentReg']);
-  $approvalDate = mysqli_real_escape_string($conn, $_POST['approvalDate']);
-  $studThesis = mysqli_real_escape_string($conn, $_POST['thesis']);
-  $supervisorName = mysqli_real_escape_string($conn, $_POST['supervisorName']);
-  $supervisorRank = mysqli_real_escape_string($conn, $_POST['supervisorRank']);
-  $supervisorAffiliation = mysqli_real_escape_string($conn, $_POST['supervisorAffiliation']);
-  $supervisorDepartment = mysqli_real_escape_string($conn, $_POST['supervisorDepartment']);
-  $supervisorQualification = mysqli_real_escape_string($conn, $_POST['supervisorQualification']);
-  $supervisorSpecialisation = mysqli_real_escape_string($conn, $_POST['supervisorSpecialisation']);
-  $coSupervisorName = mysqli_real_escape_string($conn, $_POST['coSupervisorName']);
-  $coSupervisorRank = mysqli_real_escape_string($conn, $_POST['coSupervisorRank']);
-  $coSupervisorAffiliation = mysqli_real_escape_string($conn, $_POST['coSupervisorAffiliation']);
-  $coSupervisorDepartment = mysqli_real_escape_string($conn, $_POST['coSupervisorDepartment']);
-  $coSupervisorQualification = mysqli_real_escape_string($conn, $_POST['coSupervisorQualification']);
-  $coSupervisorSpecialisation = mysqli_real_escape_string($conn, $_POST['coSupervisorSpecialisation']);
-  $comments = mysqli_real_escape_string($conn, $_POST['comments']);
-
-  // Prepare the SQL query to insert data into the recommendation_of_supervisors table
-  $sqlInsert = "INSERT INTO recommendation_of_supervisors 
-                (stud_name, matric_num, programme, college, degree, first_reg_date, recent_reg_date, senate_approval_date, thesis_title, supervisor_name, supervisor_rank, supervisor_institutional_affiliation, supervisor_department, supervisor_qualifications, supervisor_area_of_specialisation, co_supervisor_name, co_supervisor_rank, co_supervisor_institutional_affiliation, co_supervisor_department, co_supervisor_qualifications, co_supervisor_area_of_specialisation, comment)
-                VALUES 
-                ('$studName', '$studMatricNum', '$studProgramme', '$studCollege', '$studDegree', '$firstReg', '$recentReg', '$approvalDate', '$studThesis', '$supervisorName', '$supervisorRank', '$supervisorAffiliation', '$supervisorDepartment', '$supervisorQualification', '$supervisorSpecialisation', '$coSupervisorName', '$coSupervisorRank', '$coSupervisorAffiliation', '$coSupervisorDepartment', '$coSupervisorQualification', '$coSupervisorSpecialisation', '$comments')";
-
- $message = 'Submitted successfully!';
-
-  // Execute the query and check for success
-  if (mysqli_query($conn, $sqlInsert)) {
-    // alert success message ($message)
-  } else {
-    echo 'Error: ' . mysqli_error($conn);
-  }
-
-  // Close the database connection
-  mysqli_close($conn);
-}
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -128,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       href="node_modules/bootstrap/dist/css/bootstrap.css"
     />
     <link rel="stylesheet" href="./styles.css" />
+
     <style>
       .char-counter {
         font-size: 14px;
@@ -152,20 +34,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </style>
   </head>
   <body>
-    <!-- generate the alert success message -->
-    <?php if (isset($message)): ?>
-    <script>
-      alert("<?php echo $message; ?>");
-    </script>
-    <?php endif; ?>
-    <!-- alert ends -->
-
+    
     <div class="form border mx-auto">
       <img class="logo" src="./img/CU_LOGO.jpg" alt="" />
 
       <p class="text-center title">Recommendation for Appointment of Supervisors</p>
 
-      <form id="dataForm" action="index.php" method="POST">
+      <form id="dataForm" action="get_details.php" method="POST">
         <div class="row g-3">
           <!-- Name -->
           <div class="col-5">
@@ -504,203 +379,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       </form>
     </div>
 
-    <script>
-      // Function to update the character counter
-      function updateCharCount() {
-        const textarea = document.getElementById("comments");
-        const charCounter = document.getElementById("charCounter");
-        const maxLength = textarea.maxLength;
-        const currentLength = textarea.value.length;
-        const remaining = maxLength - currentLength;
-
-        charCounter.textContent = remaining + " characters remaining";
-        charCounter.classList.toggle("warning", remaining < 8);
-      }
-
-      // AJAX function to fetch student details when the name is entered
-      document
-        .getElementById("studName")
-        .addEventListener("input", function () {
-          const name = this.value;
-          if (name.trim() === "") return;
-
-          // Send AJAX request to PHP backend
-          const xhr = new XMLHttpRequest();
-          xhr.open("POST", "index.php", true);
-          xhr.setRequestHeader(
-            "Content-type",
-            "application/x-www-form-urlencoded"
-          );
-
-          xhr.onload = function () {
-            if (this.status === 200) {
-              const response = JSON.parse(this.responseText);
-
-              // Check for error in response
-              if (response.error) {
-                document.getElementById("error").textContent = response.error;
-                clearStudentFormFields();
-              } else {
-                populateStudentFormFields(response);
-                document.getElementById("error").textContent = "";
-              }
-            }
-          };
-
-          xhr.send("studName=" + encodeURIComponent(name));
-        });
-
-      // AJAX function to fetch supervisor details when the name is entered
-      document
-        .getElementById("supervisorName")
-        .addEventListener("input", function () {
-          const name = this.value;
-          if (name.trim() === "") return;
-
-          // Send AJAX request to PHP backend
-          const xhr = new XMLHttpRequest();
-          xhr.open("POST", "index.php", true);
-          xhr.setRequestHeader(
-            "Content-type",
-            "application/x-www-form-urlencoded"
-          );
-
-          xhr.onload = function () {
-            if (this.status === 200) {
-              const response = JSON.parse(this.responseText);
-
-              //Check for error in response
-              if (response.supervisorError) {
-                document.getElementById("supervisorError").textContent =
-                  response.supervisorError;
-                clearSupervisorFormFields();
-              } else {
-                populateSupervisorFormFields(response);
-                document.getElementById("supervisorError").textContent = "";
-              }
-            }
-          };
-
-          xhr.send("supervisorName=" + encodeURIComponent(name));
-        });
-
-      // AJAX function to fetch co-supervisor details when the name is entered
-      document
-        .getElementById("coSupervisorName")
-        .addEventListener("input", function () {
-          const name = this.value;
-          if (name.trim() === "") return;
-
-          // Send AJAX request to PHP backend
-          const xhr = new XMLHttpRequest();
-          xhr.open("POST", "index.php", true);
-          xhr.setRequestHeader(
-            "Content-type",
-            "application/x-www-form-urlencoded"
-          );
-
-          xhr.onload = function () {
-            if (this.status === 200) {
-              const response = JSON.parse(this.responseText);
-
-              //Check for error in response
-              if (response.coSupervisorError) {
-                document.getElementById("coSupervisorError").textContent =
-                  response.coSupervisorError;
-                clearCoSupervisorFormFields();
-              } else {
-                populateCoSupervisorFormFields(response);
-                document.getElementById("coSupervisorError").textContent = "";
-              }
-            }
-          };
-
-          xhr.send("coSupervisorName=" + encodeURIComponent(name));
-        });
-
-      // Function to populate student fields with student data
-      function populateStudentFormFields(data) {
-        document.getElementById("matricNum").value = data.matric_num || "";
-        document.getElementById("programme").value = data.programme || "";
-        document.getElementById("college").value = data.college || "";
-        document.getElementById("degree").value = data.degree || "";
-        document.getElementById("firstReg").value = data.first_reg_date || "";
-        document.getElementById("recentReg").value = data.recent_reg_date || "";
-        document.getElementById("approvalDate").value =
-          data.senate_approval_date || "";
-        document.getElementById("thesis").value = data.thesis || "";
-      }
-
-      // Function to populate supervisor form fields with supervisor data
-      function populateSupervisorFormFields(data) {
-        document.getElementById("supervisorRank").value = data.rank || "";
-        document.getElementById("supervisorAffiliation").value =
-          data.institutional_affiliation || "";
-        document.getElementById("supervisorDepartment").value =
-          data.department || "";
-        document.getElementById("supervisorQualification").value =
-          data.qualifications || "";
-        document.getElementById("supervisorSpecialisation").value =
-          data.area_of_specialisation || "";
-      }
-
-      // Function to populate co-supervisor form fields with co-supervisor data
-      function populateCoSupervisorFormFields(data) {
-        document.getElementById("coSupervisorRank").value = data.rank || "";
-        document.getElementById("coSupervisorAffiliation").value =
-          data.institutional_affiliation || "";
-        document.getElementById("coSupervisorDepartment").value =
-          data.department || "";
-        document.getElementById("coSupervisorQualification").value =
-          data.qualifications || "";
-        document.getElementById("coSupervisorSpecialisation").value =
-          data.area_of_specialisation || "";
-      }
-
-      // Function to clear student form fields if no student is found
-      function clearStudentFormFields() {
-        document.getElementById("matricNum").value = "";
-        document.getElementById("programme").value = "";
-        document.getElementById("college").value = "";
-        document.getElementById("degree").value = "";
-        document.getElementById("firstReg").value = "";
-        document.getElementById("recentReg").value = "";
-        document.getElementById("approvalDate").value = "";
-        document.getElementById("thesis").value = "";
-      }
-
-      // Function to clear supervisor form fields if no supervisor is found
-      function clearSupervisorFormFields(data) {
-        document.getElementById("supervisorRank").value = "";
-        document.getElementById("supervisorAffiliation").value = "";
-        document.getElementById("supervisorDepartment").value = "";
-        document.getElementById("supervisorQualification").value = "";
-        document.getElementById("supervisorSpecialisation").value = "";
-      }
-
-      // Function to clear co-supervisor form fields if no co-supervisor is found
-      function clearCoSupervisorFormFields(data) {
-        document.getElementById("coSupervisorRank").value = "";
-        document.getElementById("coSupervisorAffiliation").value = "";
-        document.getElementById("coSupervisorDepartment").value = "";
-        document.getElementById("coSupervisorQualification").value = "";
-        document.getElementById("coSupervisorSpecialisation").value = "";
-      }
-    </script>
-
-    <!--  -->
-    <script src="./js/jquery-3.7.1.js"></script>
-    <!--  -->
-    <script
+    <!-- JQUERY -->
+    <!-- <script src="./js/jquery-3.7.1.js"></script> -->
+    <!-- POPPER JS -->
+    <!-- <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
       integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
       crossorigin="anonymous"
-    ></script>
-    <!--  -->
-    <script
+    ></script> -->
+    <!-- BOOTSTRAP JS -->
+    <!-- <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
       integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
       crossorigin="anonymous"
-    ></script>
+    ></script> -->
+
+    <script src="./form.js"></script>
+
   </body>
 </html>
