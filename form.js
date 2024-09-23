@@ -59,31 +59,45 @@ function closeDropdown() {
 }
 
 // AJAX function to fetch student details when the name is entered
-document.getElementById("studName").addEventListener("input", function () {
-  const name = this.value;
-  if (name.trim() === "") return;
+document.addEventListener("DOMContentLoaded", function () {
+  // Initialize Select2 on the select element
+  $('#studName').select2();
 
-  // Send AJAX request to PHP backend
-  const xhr = new XMLHttpRequest();
-  xhr.open("POST", "get_details.php", true);
-  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-  xhr.onload = function () {
-    if (this.status === 200) {
-      const response = JSON.parse(this.responseText);
-
-      // Check for error in response
-      if (response.error) {
-        document.getElementById("error").textContent = response.error;
-        clearStudentFormFields();
-      } else {
-        populateStudentFormFields(response);
-        document.getElementById("error").textContent = "";
-      }
+  // Add 'change' event listener to the select2 element
+  $('#studName').on('change', function () {
+    const selectedOption = $(this).find(':selected'); // Get selected option using jQuery
+    const selectedName = selectedOption.text(); // Get the displayed text
+    const selectedValue = selectedOption.val(); // Get the value attribut
+    
+    // If no student is selected, do nothing
+    if (!selectedValue) {
+      clearStudentFormFields();
+      return;
     }
-  };
 
-  xhr.send("studName=" + encodeURIComponent(name));
+    // Send AJAX request to the PHP backend
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "get_details.php", true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    xhr.onload = function () {
+      if (this.status === 200) {
+        const response = JSON.parse(this.responseText);
+
+        // Check for error in the response
+        if (response.error) {
+          document.getElementById("error").textContent = response.error;
+          clearStudentFormFields();
+        } else {
+          populateStudentFormFields(response); // Populate fields with data from server
+          document.getElementById("error").textContent = "";
+        }
+      }
+    };
+
+    // Send the selected value to the server
+    xhr.send("studName=" + encodeURIComponent(selectedName));
+  });
 });
 
 // AJAX function to fetch supervisor details when the name is entered

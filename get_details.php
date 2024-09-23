@@ -121,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     exit();
   }
 
-  // Close the database connection
+// Close the database connection
   mysqli_close($conn);
 }
 ?>

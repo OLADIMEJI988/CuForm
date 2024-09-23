@@ -8,6 +8,7 @@
       rel="stylesheet"
       href="node_modules/bootstrap/dist/css/bootstrap.css"
     />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="./styles.css" />
 
     <style>
@@ -46,20 +47,24 @@
           <!-- Name -->
           <div class="col-5">
             <label for="studName" class="form-label">Name</label>
-            <input
+            <!-- <input
               type="text"
               class="form-control"
               id="studName"
               name="studName"
               list="search-options"
               placeholder="Select student name"
-            />
-            <datalist id="search-options">
-              <option value="Adebayo Okeke"></option>
-              <option value="Ngozi Adichie"></option>
-              <option value="Ibrahim Mohammed"></option>
-              <option value="Sholanke Oladimeji"></option>
-            </datalist>
+            /> -->
+            
+             <div class="form-control">
+               <select id="studName" style="width: 100%;">
+                 <option value="">Select student</option>
+                 <option value="1" class="dropdown-items">Adebayo Okeke</option>
+                 <option value="2" class="dropdown-items">Ngozi Adichie</option>
+                 <option value="3" class="dropdown-items">Ibrahim Mohammed</option>
+                 <option value="4" class="dropdown-items">Sholanke Oladimeji</option>
+               </select>
+             </div>
 
             <p class="error" id="error"></p>
           </div>
@@ -197,6 +202,32 @@
                 <option value="Sholanke Oladimeji"></option>
               </datalist>
 
+              <!-- <div class="dropdown-box">
+                <div class="supeSelected-item form-control">
+                  <input
+                    type="text"
+                    placeholder="Select supervisor name"
+                    id="supervisorName"
+                    name="supervisorName"
+                    readonly
+                  />
+                </div>
+
+                <div class="dropdown-content">
+                  <div class="search-input">
+                    <input type="text" placeholder="Search" />
+                  </div>
+                  <ul id="dropdownList">
+                    <li class="dropdown-item active">Select from below</li>
+                    <li class="dropdown-item">Dr. Chinedu Okafor"</li>
+                    <li class="dropdown-item">Prof. Funke Adeyemi</li>
+                    <li class="dropdown-item">Dr. Ibrahim Yusuf</li>
+                    <li class="dropdown-item">Dr. Ngozi Eze</li>
+                    <li class="dropdown-item">Sholanke Oladimeji</li>
+                  </ul>
+                </div>
+              </div> -->
+
               <p class="supervisorError" id="supervisorError"></p>
             </div>
             <!-- rank -->
@@ -292,8 +323,7 @@
                     <input type="text" placeholder="Search" />
                   </div>
                   <ul id="dropdownList">
-                    <li class="dropdown-item active">Select from below</li>
-                    <li class="dropdown-item">Sholanke Oladimeji</li>
+                    <li class="dropdown-item active">Sholanke Oladimeji</li>
                     <li class="dropdown-item">Dr. Ifeanyi Nwankwo</li>
                     <li class="dropdown-item">Prof. Amina Bello</li>
                     <li class="dropdown-item">Dr. John Adeyemi</li>
@@ -410,6 +440,19 @@
       crossorigin="anonymous"
     ></script> -->
 
-    <script src="./form.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+    <script>
+      $(document).ready(function(){
+        $('#studName').select2({
+          placeholder: "Select student name",
+          allowClear: true
+        });
+      });
+    </script>
+
+    <script type="module" src="./form.js"></script>
+
   </body>
 </html>
