@@ -8,7 +8,10 @@
       rel="stylesheet"
       href="node_modules/bootstrap/dist/css/bootstrap.css"
     />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./styles.css" />
 
     <style>
@@ -48,15 +51,15 @@
           <div class="col-5">
             <label for="studName" class="form-label">Name</label>
 
-             <div class="form-control">
-               <select id="studName" style="width: 100%;">
-                 <option value="">Select student</option>
-                 <option value="1">Adebayo Okeke</option>
-                 <option value="2">Ngozi Adichie</option>
-                 <option value="3">Ibrahim Mohammed</option>
-                 <option value="4">Sholanke Oladimeji</option>
-               </select>
-             </div>
+            <div class="form-control">
+              <select id="studName" style="width: 100%">
+                <option value="">Select student</option>
+                <option value="1">Adebayo Okeke</option>
+                <option value="2">Ngozi Adichie</option>
+                <option value="3">Ibrahim Mohammed</option>
+                <option value="4">Sholanke Oladimeji</option>
+              </select>
+            </div>
 
             <p class="error" id="error"></p>
           </div>
@@ -177,25 +180,17 @@
               <label for="supervisorName" class="form-label"
                 >Name of Supervisor</label
               >
-              <!-- <input
-                type="text"
-                class="form-control"
-                id="supervisorName"
-                name="supervisorName"
-                list="search-option"
-                placeholder="Select supervisor name"
-              /> -->
 
               <div class="form-control">
-               <select id="supervisorName" style="width: 100%;">
-                 <option value="">Select student</option>
-                 <option value="1">Dr. Chinedu Okafor</option>
-                 <option value="2">Prof. Funke Adeyemi</option>
-                 <option value="3">Dr. Ibrahim Yusuf</option>
-                 <option value="4">Dr. Ngozi Eze</option>
-                 <option value="5">Sholanke Oladimeji</option>
-               </select>
-             </div>
+                <select id="supervisorName" style="width: 100%">
+                  <option value="">Select student</option>
+                  <option value="1">Dr. Chinedu Okafor</option>
+                  <option value="2">Prof. Funke Adeyemi</option>
+                  <option value="3">Dr. Ibrahim Yusuf</option>
+                  <option value="4">Dr. Ngozi Eze</option>
+                  <option value="5">Sholanke Oladimeji</option>
+                </select>
+              </div>
 
               <p class="supervisorError" id="supervisorError"></p>
             </div>
@@ -276,30 +271,18 @@
               <label for="coSupervisorName" class="form-label"
                 >Name of Co-supervisor</label
               >
-              <div class="dropdown-box">
-                <div class="selected-item form-control">
-                  <input
-                    type="text"
-                    placeholder="Select co-supervisor name"
-                    id="coSupervisorName"
-                    name="coSupervisorName"
-                    readonly
-                  />
-                </div>
 
-                <div class="dropdown-content">
-                  <div class="search-input">
-                    <input type="text" placeholder="Search" />
-                  </div>
-                  <ul id="dropdownList">
-                    <li class="dropdown-item active">Sholanke Oladimeji</li>
-                    <li class="dropdown-item">Dr. Ifeanyi Nwankwo</li>
-                    <li class="dropdown-item">Prof. Amina Bello</li>
-                    <li class="dropdown-item">Dr. John Adeyemi</li>
-                    <li class="dropdown-item">Dr. Funmi Akintunde</li>
-                  </ul>
-                </div>
+              <div class="form-control">
+                <select id="coSupervisorName" style="width: 100%">
+                  <option value="">Select student</option>
+                  <option value="1">Sholanke Oladimeji</option>
+                  <option value="2">Dr. Ifeanyi Nwankwo</option>
+                  <option value="3">Prof. Amina Bello</option>
+                  <option value="4">Dr. John Adeyemi</option>
+                  <option value="5">Dr. Funmi Akintunde</option>
+                </select>
               </div>
+
               <p class="coSupervisorError" id="coSupervisorError"></p>
             </div>
             <!-- rank -->
@@ -412,21 +395,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
-    <script>
-      $(document).ready(function(){
-        $('#studName').select2({
-          placeholder: "Select student name",
-          allowClear: true
-        });
-
-        $('#supervisorName').select2({
-          placeholder: "Select supervisor name",
-          allowClear: true
-        });
-      });
-    </script>
-
     <script type="module" src="./form.js"></script>
-
   </body>
 </html>

@@ -11,7 +11,7 @@ if (!$conn) {
 if (isset($_POST['studName']) && empty($_POST['supervisorName']) && empty($_POST['coSupervisorName'])) {
   $name = mysqli_real_escape_string($conn, $_POST['studName']);
     
-  // Query for student information based on the given name
+  // Query for student info based on the selected name
   $sqlStudents = "SELECT * FROM stud_info WHERE name = '$name' LIMIT 1";
   $studentResult = mysqli_query($conn, $sqlStudents);
 
@@ -32,7 +32,7 @@ if (isset($_POST['studName']) && empty($_POST['supervisorName']) && empty($_POST
 if (isset($_POST['supervisorName']) && empty($_POST['studName']) && empty($_POST['coSupervisorName'])) {
   $name = mysqli_real_escape_string($conn, $_POST['supervisorName']);
     
-  // Query for supervisor information based on the given name
+  // Query for supervisor info based on the selected name
   $sqlSupervisors = "SELECT * FROM supervisors_info WHERE name = '$name' LIMIT 1";
   $supervisorResult = mysqli_query($conn, $sqlSupervisors);
 
@@ -53,7 +53,7 @@ if (isset($_POST['supervisorName']) && empty($_POST['studName']) && empty($_POST
 if (isset($_POST['coSupervisorName']) && empty($_POST['studName']) && empty($_POST['supervisorName'])) {
   $name = mysqli_real_escape_string($conn, $_POST['coSupervisorName']);
     
-  // Query for co-supervisor information based on the given name
+  // Query for co-supervisor info based on the selected name
   $sqlCoSupervisors = "SELECT * FROM co_supervisors_info WHERE name = '$name' LIMIT 1";
   $coSupervisorResult = mysqli_query($conn, $sqlCoSupervisors);
 

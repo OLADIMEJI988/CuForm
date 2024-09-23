@@ -1,74 +1,31 @@
-window.addEventListener("load", () => {
-  window.addEventListener("click", (windowClickEvent) => {
-    const dropdown = document.querySelector(".dropdown-box");
-    const dropdownContent = document.querySelector(".dropdown-content");
-    const selectedItem = document.querySelector(".selected-item");
-
-    if (dropdown.classList.contains("active")) {
-      if (!dropdownContent.contains(windowClickEvent.target)) {
-        closeDropdown();
-      }
-    } else if (selectedItem.contains(windowClickEvent.target)) {
-      openDropdown();
-    }
+$(document).ready(function () {
+  $("#studName").select2({
+    placeholder: "Select student name",
+    allowClear: true,
   });
 
-  const dropdownItems = document.querySelectorAll(".dropdown-item");
-
-  dropdownItems.forEach((dropdownItem) => {
-    dropdownItem.addEventListener("click", () => {
-      dropdownItems.forEach((innerDropdownItem) => {
-        innerDropdownItem.classList.remove("active");
-      });
-
-      dropdownItem.classList.add("active");
-
-      const selectedItemInput = document.querySelector(".selected-item input");
-
-      selectedItemInput.value = dropdownItem.innerHTML;
-
-      closeDropdown();
-    });
+  $("#supervisorName").select2({
+    placeholder: "Select supervisor name",
+    allowClear: true,
   });
 
-  const searchInput = document.querySelector(".search-input input");
-
-  searchInput.addEventListener("keyup", () => {
-    const filter = searchInput.value.toLocaleLowerCase();
-
-    dropdownItems.forEach((dropdownItem) => {
-      if (dropdownItem.innerHTML.toLocaleLowerCase().startsWith(filter)) {
-        dropdownItem.classList.remove("hide");
-      } else {
-        dropdownItem.classList.add("hide");
-      }
-    });
+  $("#coSupervisorName").select2({
+    placeholder: "Select co-supervisor name",
+    allowClear: true,
   });
 });
-
-function openDropdown() {
-  const dropdown = document.querySelector(".dropdown-box");
-
-  dropdown.classList.add("active");
-}
-
-function closeDropdown() {
-  const dropdown = document.querySelector(".dropdown-box");
-
-  dropdown.classList.remove("active");
-}
 
 // Fetch and display student details when a name is selected
 document.addEventListener("DOMContentLoaded", function () {
   // Initialize Select2 on the select element
-  $('#studName').select2();
+  $("#studName").select2();
 
   // Add 'change' event listener to the select2 element
-  $('#studName').on('change', function () {
-    const selectedOption = $(this).find(':selected'); // Get selected option using jQuery
-    const selectedName = selectedOption.text(); // Get the displayed text
-    const selectedValue = selectedOption.val(); // Get the value attribute
-    
+  $("#studName").on("change", function () {
+    const selectedOption = $(this).find(":selected"); 
+    const selectedName = selectedOption.text();
+    const selectedValue = selectedOption.val(); 
+
     // If no student is selected, do nothing
     if (!selectedValue) {
       clearStudentFormFields();
@@ -89,13 +46,13 @@ document.addEventListener("DOMContentLoaded", function () {
           document.getElementById("error").textContent = response.error;
           clearStudentFormFields();
         } else {
-          populateStudentFormFields(response); // Populate fields with data from server
+          populateStudentFormFields(response);
           document.getElementById("error").textContent = "";
         }
       }
     };
 
-    // Send the selected name to the server
+    // Send the selected student name to the server
     xhr.send("studName=" + encodeURIComponent(selectedName));
   });
 });
@@ -103,15 +60,15 @@ document.addEventListener("DOMContentLoaded", function () {
 // Fetch and display supervisor details when a name is selected
 document.addEventListener("DOMContentLoaded", function () {
   // Initialize Select2 on the select element
-  $('#supervisorName').select2();
+  $("#supervisorName").select2();
 
   // Add 'change' event listener to the select2 element
-  $('#supervisorName').on('change', function () {
-    const selectedOption = $(this).find(':selected'); // Get selected option using jQuery
-    const selectedName = selectedOption.text(); // Get the displayed text
-    const selectedValue = selectedOption.val(); // Get the value attribute
-    
-    // If no student is selected, do nothing
+  $("#supervisorName").on("change", function () {
+    const selectedOption = $(this).find(":selected");
+    const selectedName = selectedOption.text(); 
+    const selectedValue = selectedOption.val();
+
+    // If no supervisor is selected, do nothing
     if (!selectedValue) {
       clearSupervisorFormFields();
       return;
@@ -128,7 +85,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Check for error in the response
         if (response.supervisorError) {
-          document.getElementById("supervisorError").textContent = response.supervisorError;
+          document.getElementById("supervisorError").textContent =
+            response.supervisorError;
           clearSupervisorFormFields();
         } else {
           populateSupervisorFormFields(response); // Populate fields with data from server
@@ -137,44 +95,51 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     };
 
-    // Send the selected name to the server
+    // Send the supervisor name to the server
     xhr.send("supervisorName=" + encodeURIComponent(selectedName));
   });
 });
 
 // Fetch and display co-supervisor details when a name is selected
 document.addEventListener("DOMContentLoaded", function () {
-  // click event for the dropdown items
-  document.querySelectorAll(".dropdown-item").forEach(function (item) {
-    item.addEventListener("click", function () {
-      const selectedName = this.textContent;
-      // Update input field with the selected name
-      document.getElementById("coSupervisorName").value = selectedName;
+  // Initialize Select2 on the select element
+  $("#coSupervisorName").select2();
 
-      // Send AJAX request to the PHP backend
-      const xhr = new XMLHttpRequest();
-      xhr.open("POST", "get_details.php", true);
-      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  // Add 'change' event listener to the select2 element
+  $("#coSupervisorName").on("change", function () {
+    const selectedOption = $(this).find(":selected"); 
+    const selectedName = selectedOption.text(); 
+    const selectedValue = selectedOption.val(); 
 
-      xhr.onload = function () {
-        if (this.status === 200) {
-          const response = JSON.parse(this.responseText);
+    // If no co-supervisor is selected, do nothing
+    if (!selectedValue) {
+      clearCoSupervisorFormFields();
+      return;
+    }
 
-          // Check for error in the response
-          if (response.coSupervisorError) {
-            document.getElementById("coSupervisorError").textContent =
-              response.coSupervisorError;
-            clearCoSupervisorFormFields();
-          } else {
-            populateCoSupervisorFormFields(response);
-            document.getElementById("coSupervisorError").textContent = "";
-          }
+    // Send AJAX request to the PHP backend
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "get_details.php", true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    xhr.onload = function () {
+      if (this.status === 200) {
+        const response = JSON.parse(this.responseText);
+
+        // Check for error in the response
+        if (response.coSupervisorError) {
+          document.getElementById("coSupervisorError").textContent =
+            response.coSupervisorError;
+          clearCoSupervisorFormFields();
+        } else {
+          populateCoSupervisorFormFields(response);
+          document.getElementById("coSupervisorError").textContent = "";
         }
-      };
+      }
+    };
 
-      // Send the selected name to the server
-      xhr.send("coSupervisorName=" + encodeURIComponent(selectedName));
-    });
+    // Send the co-supervisor name to the server
+    xhr.send("coSupervisorName=" + encodeURIComponent(selectedName));
   });
 });
 
@@ -191,7 +156,7 @@ function populateStudentFormFields(data) {
   document.getElementById("thesis").value = data.thesis || "";
 }
 
-// Function to populate supervisor form fields with supervisor data
+// Function to populate supervisor fields with supervisor data
 function populateSupervisorFormFields(data) {
   document.getElementById("supervisorRank").value = data.rank || "";
   document.getElementById("supervisorAffiliation").value =
@@ -203,7 +168,7 @@ function populateSupervisorFormFields(data) {
     data.area_of_specialisation || "";
 }
 
-// Function to populate co-supervisor form fields with co-supervisor data
+// Function to populate co-supervisor fields with co-supervisor data
 function populateCoSupervisorFormFields(data) {
   document.getElementById("coSupervisorRank").value = data.rank || "";
   document.getElementById("coSupervisorAffiliation").value =
@@ -216,7 +181,7 @@ function populateCoSupervisorFormFields(data) {
     data.area_of_specialisation || "";
 }
 
-// Function to clear student form fields if no student is found
+// Function to clear student fields if no student is found / selected
 function clearStudentFormFields() {
   document.getElementById("matricNum").value = "";
   document.getElementById("programme").value = "";
@@ -228,7 +193,7 @@ function clearStudentFormFields() {
   document.getElementById("thesis").value = "";
 }
 
-// Function to clear supervisor form fields if no supervisor is found
+// Function to clear supervisor fields if no supervisor is found / selected
 function clearSupervisorFormFields(data) {
   document.getElementById("supervisorRank").value = "";
   document.getElementById("supervisorAffiliation").value = "";
@@ -237,7 +202,7 @@ function clearSupervisorFormFields(data) {
   document.getElementById("supervisorSpecialisation").value = "";
 }
 
-// Function to clear co-supervisor form fields if no co-supervisor is found
+// Function to clear co-supervisor fields if no co-supervisor is found / selected
 function clearCoSupervisorFormFields(data) {
   document.getElementById("coSupervisorRank").value = "";
   document.getElementById("coSupervisorAffiliation").value = "";
@@ -246,7 +211,7 @@ function clearCoSupervisorFormFields(data) {
   document.getElementById("coSupervisorSpecialisation").value = "";
 }
 
-// Function to update the character counter
+// Function to update the maximum character count
 function updateCharCount() {
   const textarea = document.getElementById("comments");
   const charCounter = document.getElementById("charCounter");
