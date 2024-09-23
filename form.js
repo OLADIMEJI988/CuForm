@@ -58,7 +58,7 @@ function closeDropdown() {
   dropdown.classList.remove("active");
 }
 
-// AJAX function to fetch student details when the name is entered
+// Fetch and display student details when a name is selected
 document.addEventListener("DOMContentLoaded", function () {
   // Initialize Select2 on the select element
   $('#studName').select2();
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
   $('#studName').on('change', function () {
     const selectedOption = $(this).find(':selected'); // Get selected option using jQuery
     const selectedName = selectedOption.text(); // Get the displayed text
-    const selectedValue = selectedOption.val(); // Get the value attribut
+    const selectedValue = selectedOption.val(); // Get the value attribute
     
     // If no student is selected, do nothing
     if (!selectedValue) {
@@ -95,19 +95,29 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     };
 
-    // Send the selected value to the server
+    // Send the selected name to the server
     xhr.send("studName=" + encodeURIComponent(selectedName));
   });
 });
 
-// AJAX function to fetch supervisor details when the name is entered
-document
-  .getElementById("supervisorName")
-  .addEventListener("input", function () {
-    const name = this.value;
-    if (name.trim() === "") return;
+// Fetch and display supervisor details when a name is selected
+document.addEventListener("DOMContentLoaded", function () {
+  // Initialize Select2 on the select element
+  $('#supervisorName').select2();
 
-    // Send AJAX request to PHP backend
+  // Add 'change' event listener to the select2 element
+  $('#supervisorName').on('change', function () {
+    const selectedOption = $(this).find(':selected'); // Get selected option using jQuery
+    const selectedName = selectedOption.text(); // Get the displayed text
+    const selectedValue = selectedOption.val(); // Get the value attribute
+    
+    // If no student is selected, do nothing
+    if (!selectedValue) {
+      clearSupervisorFormFields();
+      return;
+    }
+
+    // Send AJAX request to the PHP backend
     const xhr = new XMLHttpRequest();
     xhr.open("POST", "get_details.php", true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -116,23 +126,23 @@ document
       if (this.status === 200) {
         const response = JSON.parse(this.responseText);
 
-        //Check for error in response
+        // Check for error in the response
         if (response.supervisorError) {
-          document.getElementById("supervisorError").textContent =
-            response.supervisorError;
+          document.getElementById("supervisorError").textContent = response.supervisorError;
           clearSupervisorFormFields();
         } else {
-          populateSupervisorFormFields(response);
+          populateSupervisorFormFields(response); // Populate fields with data from server
           document.getElementById("supervisorError").textContent = "";
         }
       }
     };
 
-    xhr.send("supervisorName=" + encodeURIComponent(name));
+    // Send the selected name to the server
+    xhr.send("supervisorName=" + encodeURIComponent(selectedName));
   });
+});
 
-// Fetch and display co-supervisor details from the selected name
-
+// Fetch and display co-supervisor details when a name is selected
 document.addEventListener("DOMContentLoaded", function () {
   // click event for the dropdown items
   document.querySelectorAll(".dropdown-item").forEach(function (item) {

@@ -47,22 +47,14 @@
           <!-- Name -->
           <div class="col-5">
             <label for="studName" class="form-label">Name</label>
-            <!-- <input
-              type="text"
-              class="form-control"
-              id="studName"
-              name="studName"
-              list="search-options"
-              placeholder="Select student name"
-            /> -->
-            
+
              <div class="form-control">
                <select id="studName" style="width: 100%;">
                  <option value="">Select student</option>
-                 <option value="1" class="dropdown-items">Adebayo Okeke</option>
-                 <option value="2" class="dropdown-items">Ngozi Adichie</option>
-                 <option value="3" class="dropdown-items">Ibrahim Mohammed</option>
-                 <option value="4" class="dropdown-items">Sholanke Oladimeji</option>
+                 <option value="1">Adebayo Okeke</option>
+                 <option value="2">Ngozi Adichie</option>
+                 <option value="3">Ibrahim Mohammed</option>
+                 <option value="4">Sholanke Oladimeji</option>
                </select>
              </div>
 
@@ -185,48 +177,25 @@
               <label for="supervisorName" class="form-label"
                 >Name of Supervisor</label
               >
-              <input
+              <!-- <input
                 type="text"
                 class="form-control"
                 id="supervisorName"
                 name="supervisorName"
                 list="search-option"
                 placeholder="Select supervisor name"
-              />
+              /> -->
 
-              <datalist id="search-option">
-                <option value="Dr. Chinedu Okafor"></option>
-                <option value="Prof. Funke Adeyemi"></option>
-                <option value="Dr. Ibrahim Yusuf"></option>
-                <option value="Dr. Ngozi Eze"></option>
-                <option value="Sholanke Oladimeji"></option>
-              </datalist>
-
-              <!-- <div class="dropdown-box">
-                <div class="supeSelected-item form-control">
-                  <input
-                    type="text"
-                    placeholder="Select supervisor name"
-                    id="supervisorName"
-                    name="supervisorName"
-                    readonly
-                  />
-                </div>
-
-                <div class="dropdown-content">
-                  <div class="search-input">
-                    <input type="text" placeholder="Search" />
-                  </div>
-                  <ul id="dropdownList">
-                    <li class="dropdown-item active">Select from below</li>
-                    <li class="dropdown-item">Dr. Chinedu Okafor"</li>
-                    <li class="dropdown-item">Prof. Funke Adeyemi</li>
-                    <li class="dropdown-item">Dr. Ibrahim Yusuf</li>
-                    <li class="dropdown-item">Dr. Ngozi Eze</li>
-                    <li class="dropdown-item">Sholanke Oladimeji</li>
-                  </ul>
-                </div>
-              </div> -->
+              <div class="form-control">
+               <select id="supervisorName" style="width: 100%;">
+                 <option value="">Select student</option>
+                 <option value="1">Dr. Chinedu Okafor</option>
+                 <option value="2">Prof. Funke Adeyemi</option>
+                 <option value="3">Dr. Ibrahim Yusuf</option>
+                 <option value="4">Dr. Ngozi Eze</option>
+                 <option value="5">Sholanke Oladimeji</option>
+               </select>
+             </div>
 
               <p class="supervisorError" id="supervisorError"></p>
             </div>
@@ -447,6 +416,11 @@
       $(document).ready(function(){
         $('#studName').select2({
           placeholder: "Select student name",
+          allowClear: true
+        });
+
+        $('#supervisorName').select2({
+          placeholder: "Select supervisor name",
           allowClear: true
         });
       });

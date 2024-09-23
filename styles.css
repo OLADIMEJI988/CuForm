@@ -285,7 +285,7 @@ li.active {
 .select2-search__field{
     border: 2px solid rgb(86, 23, 64) !important;
     padding: 5px !important;
-    border-radius: 3px;
+    border-radius: 4px;
     margin-top: 2px;
     margin-bottom: 2px;
 }
