@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $coSupervisorSpecialisation = mysqli_real_escape_string($conn, $_POST['coSupervisorSpecialisation']);
   $comments = mysqli_real_escape_string($conn, $_POST['comments']);
   
-    // Store form data in the session
+    // Store form data to be displayed in the preview page 
     $_SESSION['form_data'] = [
       'studName' => $studName,
       'studMatricNum' => $studMatricNum,
