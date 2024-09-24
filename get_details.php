@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 // Connect to database
 $conn = mysqli_connect('localhost', 'sholanke', 'shinnely_JR1', 'appoint_supe');
 
@@ -96,7 +98,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $coSupervisorSpecialisation = mysqli_real_escape_string($conn, $_POST['coSupervisorSpecialisation']);
   $comments = mysqli_real_escape_string($conn, $_POST['comments']);
   
-  // $selectedName = $_POST['studName'];
+    // Store form data in the session
+    $_SESSION['form_data'] = [
+      'studName' => $studName,
+      'studMatricNum' => $studMatricNum,
+      'studProgramme' => $studProgramme,
+      'studCollege' => $studCollege,
+      'studDegree' => $studDegree,
+      'firstReg' => $firstReg,
+      'recentReg' => $recentReg,
+      'approvalDate' => $approvalDate,
+      'studThesis' => $studThesis,
+      'supervisorName' => $supervisorName,
+      'supervisorRank' => $supervisorRank,
+      'supervisorAffiliation' => $supervisorAffiliation,
+      'supervisorDepartment' => $supervisorDepartment,
+      'supervisorQualification' => $supervisorQualification,
+      'supervisorSpecialisation' => $supervisorSpecialisation,
+      'coSupervisorName' => $coSupervisorName,
+      'coSupervisorRank' => $coSupervisorRank,
+      'coSupervisorAffiliation' => $coSupervisorAffiliation,
+      'coSupervisorDepartment' => $coSupervisorDepartment,
+      'coSupervisorQualification' => $coSupervisorQualification,
+      'coSupervisorSpecialisation' => $coSupervisorSpecialisation,
+      'comments' => $comments
+    ];
 
   // Prepare the SQL query to insert data into the recommendation_of_supervisors table
   $sqlInsert = "INSERT INTO recommendation_of_supervisors 
@@ -110,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // If successful, show success message and then redirect
     echo "<script>
             alert('Form submitted successfully!');
-            window.location.href = 'index.php';
+            window.location.href = 'preview.php';
           </script>";
     exit();
   } else {
