@@ -53,7 +53,7 @@
             <label for="studName" class="form-label">Name</label>
 
             <div class="form-control">
-              <select id="studName" style="width: 100%">
+              <select id="studName" name="studName" style="width: 100%">
                 <option value=""></option>
                 <?php 
                 $select_query = mysqli_query($conn, "SELECT name FROM stud_info");
@@ -184,7 +184,7 @@
               >
 
               <div class="form-control">
-                <select id="supervisorName" style="width: 100%">
+                <select id="supervisorName" name="supervisorName" style="width: 100%">
                   <option value=""></option>
                   <?php 
                   $supeSelect_query = mysqli_query($conn, "SELECT name FROM supervisors_info");
@@ -275,7 +275,7 @@
               >
 
               <div class="form-control">
-                <select id="coSupervisorName" style="width: 100%">
+                <select id="coSupervisorName" name="coSupervisorName" style="width: 100%">
                   <option value=""></option>
                   <?php 
                   $coSupeSelect_query = mysqli_query($conn, "SELECT name FROM co_supervisors_info");

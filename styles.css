@@ -196,6 +196,7 @@ body{
     font-style: italic;
 }
 
+/* 
 .studDetails, .studDetailsContd{
     display: flex;
 }
@@ -208,4 +209,4 @@ body{
 .recommendedSupes{
     display: flex; 
     gap: 20px;
-}
+} */

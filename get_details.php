@@ -95,6 +95,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $coSupervisorQualification = mysqli_real_escape_string($conn, $_POST['coSupervisorQualification']);
   $coSupervisorSpecialisation = mysqli_real_escape_string($conn, $_POST['coSupervisorSpecialisation']);
   $comments = mysqli_real_escape_string($conn, $_POST['comments']);
+  
+  // $selectedName = $_POST['studName'];
 
   // Prepare the SQL query to insert data into the recommendation_of_supervisors table
   $sqlInsert = "INSERT INTO recommendation_of_supervisors 
@@ -121,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     exit();
   }
 
-// Close the database connection
+ // Close the database connection
   mysqli_close($conn);
 }
 ?>
