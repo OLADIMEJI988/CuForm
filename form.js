@@ -4,14 +4,30 @@ $(document).ready(function () {
     allowClear: true,
   });
 
+  $('#studName').on('select2:open', function() {
+    $(".select2-search__field").attr("placeholder", "Search for a student");
+  });
+});
+
+$(document).ready(function () {
   $("#supervisorName").select2({
     placeholder: "Select supervisor name",
     allowClear: true,
   });
 
+  $('#supervisorName').on('select2:open', function() {
+    $(".select2-search__field").attr("placeholder", "Search for a supervisor");
+  });
+});
+
+$(document).ready(function () {
   $("#coSupervisorName").select2({
     placeholder: "Select co-supervisor name",
     allowClear: true,
+  });
+
+  $('#coSupervisorName').on('select2:open', function() {
+    $(".select2-search__field").attr("placeholder", "Search for a co-supervisor");
   });
 });
 
@@ -22,9 +38,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Add 'change' event listener to the select2 element
   $("#studName").on("change", function () {
-    const selectedOption = $(this).find(":selected"); 
+    const selectedOption = $(this).find(":selected");
     const selectedName = selectedOption.text();
-    const selectedValue = selectedOption.val(); 
+    const selectedValue = selectedOption.val();
 
     // If no student is selected, do nothing
     if (!selectedValue) {
@@ -65,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Add 'change' event listener to the select2 element
   $("#supervisorName").on("change", function () {
     const selectedOption = $(this).find(":selected");
-    const selectedName = selectedOption.text(); 
+    const selectedName = selectedOption.text();
     const selectedValue = selectedOption.val();
 
     // If no supervisor is selected, do nothing
@@ -107,9 +123,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Add 'change' event listener to the select2 element
   $("#coSupervisorName").on("change", function () {
-    const selectedOption = $(this).find(":selected"); 
-    const selectedName = selectedOption.text(); 
-    const selectedValue = selectedOption.val(); 
+    const selectedOption = $(this).find(":selected");
+    const selectedName = selectedOption.text();
+    const selectedValue = selectedOption.val();
 
     // If no co-supervisor is selected, do nothing
     if (!selectedValue) {

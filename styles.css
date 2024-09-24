@@ -10,11 +10,22 @@ body{
     font-family: "Roboto", cursive !important;
 }
 
+.preview-page{
+    background-color: white;
+}
+
 .title{
     text-transform: uppercase;
     font-weight: 500;
     font-size: 18px;
     margin-bottom: 2rem;
+}
+
+.header{
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 14px;
 }
 
 .thesis_txt{
@@ -27,6 +38,15 @@ body{
     margin-right: auto;
     margin-bottom: 2rem;
     height: 100px;
+    width: auto;
+}
+
+.preview-logo{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1rem;
+    height: 120px;
     width: auto;
 }
 
@@ -162,9 +182,30 @@ body{
     border-radius: 4px;
     margin-top: 2px;
     margin-bottom: 2px;
+    font-size: 15px;
 }
 
 .select2-selection__clear{
     font-size: 20px;
     transform: translateX(-10px);
+}
+
+.select2-search__field::placeholder {
+    color: rgb(86, 23, 64);
+    opacity: 0.8;
+    font-style: italic;
+}
+
+.studDetails, .studDetailsContd{
+    display: flex;
+}
+
+.studNamePreview, .matricPreview, .programmePreview, .collegePreview, .degreePreview, .firstRegPreview, .recentRegPreview, .senateApprovalPreview, .thesisPreview{
+    display: flex;
+    gap: 15px;
+}
+
+.recommendedSupes{
+    display: flex; 
+    gap: 20px;
 }

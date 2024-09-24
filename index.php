@@ -37,6 +37,7 @@
       }
     </style>
   </head>
+  <?php include ('get_details.php'); ?>
   <body>
     <div class="form border mx-auto">
       <img class="logo" src="./img/CU_LOGO.jpg" alt="" />
@@ -53,11 +54,12 @@
 
             <div class="form-control">
               <select id="studName" style="width: 100%">
-                <option value="">Select student</option>
-                <option value="1">Adebayo Okeke</option>
-                <option value="2">Ngozi Adichie</option>
-                <option value="3">Ibrahim Mohammed</option>
-                <option value="4">Sholanke Oladimeji</option>
+                <option value=""></option>
+                <?php 
+                $select_query = mysqli_query($conn, "SELECT name FROM stud_info");
+                while ($studResult = mysqli_fetch_array($select_query)) {?>
+                <option><?php echo $studResult['name']; ?></option>
+                <?php } ?>
               </select>
             </div>
 
@@ -183,12 +185,12 @@
 
               <div class="form-control">
                 <select id="supervisorName" style="width: 100%">
-                  <option value="">Select student</option>
-                  <option value="1">Dr. Chinedu Okafor</option>
-                  <option value="2">Prof. Funke Adeyemi</option>
-                  <option value="3">Dr. Ibrahim Yusuf</option>
-                  <option value="4">Dr. Ngozi Eze</option>
-                  <option value="5">Sholanke Oladimeji</option>
+                  <option value=""></option>
+                  <?php 
+                  $supeSelect_query = mysqli_query($conn, "SELECT name FROM supervisors_info");
+                  while ($supeResult = mysqli_fetch_array($supeSelect_query)) {?>
+                  <option><?php echo $supeResult['name']; ?></option>
+                  <?php } ?>
                 </select>
               </div>
 
@@ -274,12 +276,12 @@
 
               <div class="form-control">
                 <select id="coSupervisorName" style="width: 100%">
-                  <option value="">Select student</option>
-                  <option value="1">Sholanke Oladimeji</option>
-                  <option value="2">Dr. Ifeanyi Nwankwo</option>
-                  <option value="3">Prof. Amina Bello</option>
-                  <option value="4">Dr. John Adeyemi</option>
-                  <option value="5">Dr. Funmi Akintunde</option>
+                  <option value=""></option>
+                  <?php 
+                  $coSupeSelect_query = mysqli_query($conn, "SELECT name FROM co_supervisors_info");
+                  while ($coSupeResult = mysqli_fetch_array($coSupeSelect_query)) {?>
+                  <option><?php echo $coSupeResult['name']; ?></option>
+                  <?php } ?>
                 </select>
               </div>
 
