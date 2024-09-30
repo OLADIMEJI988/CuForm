@@ -236,5 +236,5 @@ function updateCharCount() {
   const remaining = maxLength - currentLength;
 
   charCounter.textContent = remaining + " characters remaining";
-  charCounter.classList.toggle("warning", remaining < 8);
+  charCounter.classList.toggle("warning", remaining < 50);
 }

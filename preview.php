@@ -149,7 +149,7 @@ if (isset($_SESSION['form_data'])) {
           </div>
        </div>
        
-       <div class="formPreview mt-5">
+       <div class="commentPreview mt-5">
           <p class="text-center title">
             Coordinator Departmental PG Committee Comment
           </p>

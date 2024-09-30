@@ -365,11 +365,11 @@
             name="comments"
             rows="4"
             cols="70"
-            maxlength="20"
+            maxlength="200"
             oninput="updateCharCount()"
             placeholder="Leave your remark here...."
           ></textarea>
-          <p class="char-counter" id="charCounter">20 characters remaining</p>
+          <p class="char-counter" id="charCounter">200 characters remaining</p>
         </div>
 
         <!-- Submit button -->
