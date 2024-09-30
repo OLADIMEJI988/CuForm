@@ -6,7 +6,6 @@
 }
 
 body{
-    background-color: rgb(45 47 58);
     font-family: "Roboto", cursive !important;
 }
 
@@ -32,7 +31,7 @@ body{
     width: 265px;
 }
 
-.logo{
+.logo, .preview-logo{
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -42,12 +41,7 @@ body{
 }
 
 .preview-logo{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 1rem;
-    height: 120px;
-    width: auto;
+    height: 115px;
 }
 
 .form{
@@ -57,6 +51,7 @@ body{
     width: 49pc;
     background-color: rgb(255 255 253);
     color: rgb(45 47 58);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .form-label{
@@ -196,35 +191,51 @@ body{
     font-style: italic;
 }
 
-.studDetails {
-    border: 1px solid #ccc; /* Light gray border */
-    border-radius: 8px; /* Rounded corners */
-    padding: 20px; /* Spacing inside the container */
-    margin: 20px auto; /* Centering the container */
-    background-color: #f9f9f9; /* Light background color */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+.preview-page{
+    padding: 40px;
+}
+
+.formPreview{
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9; 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 40px 30px 25px;
+}
+
+.studNamePreview, .matricPreview, .programmePreview, 
+.collegePreview, .degreePreview, .firstRegPreview, 
+.recentRegPreview, .senateApprovalPreview, .thesisPreview, 
+.supervisorNamePreview, .supervisorRankPreview, .supervisorAffiliationPreview, 
+.supervisorDepartmentPreview, .supervisorSpecialiasationPreview, .supervisorQualificationPreview,
+.coSupeNamePreview, .coSupeRankPreview, .coSupeAffiliationPreview,
+.coSupeDepartmentPreview, .coSupeSpecialisationPreview, .coSupeQualificationPreview {
     display: flex;
+    font-size: 16px;
+    margin-left: 18px;
 }
 
-.studDetails div {
-    margin-bottom: 15px; /* Space between individual detail sections */
+.studNamePreview p:first-child, .matricPreview p:first-child,
+.programmePreview p:first-child, .collegePreview p:first-child,
+.degreePreview p:first-child, .firstRegPreview p:first-child,
+.recentRegPreview p:first-child, .senateApprovalPreview p:first-child,
+.thesisPreview p:first-child,  .supervisorNamePreview p:first-child,
+.supervisorRankPreview p:first-child, .supervisorAffiliationPreview p:first-child,
+.supervisorDepartmentPreview p:first-child, .supervisorSpecialiasationPreview p:first-child,
+.supervisorQualificationPreview p:first-child, .coSupeNamePreview p:first-child,
+.coSupeRankPreview p:first-child, .coSupeAffiliationPreview p:first-child,
+.coSupeDepartmentPreview p:first-child, .coSupeSpecialisationPreview p:first-child,
+.coSupeQualificationPreview p:first-child{
+    font-weight: 600;
+    color: #333; 
+    margin-right: 10px;
+}
+.quali{
+    max-width: 45pc;
 }
 
-.studDetails p {
-    margin: 5px 0; /* Vertical spacing for paragraphs */
-}
-
-.studNamePreview, .matricPreview{
-    display: flex;
-    margin-right: 20px;
-}
-
-.studNamePreview p:first-child {
-    font-weight: bold; /* Bold for label */
-    color: #333; /* Dark text for labels */
-}
-
-.matricPreview p:first-child {
-    font-weight: bold; /* Bold for label */
-    color: #333; /* Dark text for labels */
+.span{
+    font-weight: 600;
+    margin-left: -6px;
+    margin-right: 10px;
 }
