@@ -9,7 +9,7 @@ if (isset($_SESSION['form_data'])) {
   echo '<img class="preview-logo" src="./img/CU_LOGO.jpg" alt="" />
        <div class="text-center">
          <p>Recommendation for appointment of supervisors preview</p>
-         <p>Masters Degree</p>
+         <p>(Masters Degree)</p>
        </div>
        <div class="formPreview">
           <p class="text-center title">Student Details</p>
@@ -147,6 +147,13 @@ if (isset($_SESSION['form_data'])) {
               <p class="quali">' . htmlspecialchars($formData['coSupervisorQualification']) . '</p>
             </div>
           </div>
+       </div>
+       
+       <div class="formPreview mt-5">
+          <p class="text-center title">
+            Coordinator Departmental PG Committee Comment
+          </p>
+          <p class="text-center">' . htmlspecialchars($formData['comments']) . '</p>
        </div>';
 
   // Clear the session after displaying the form data
