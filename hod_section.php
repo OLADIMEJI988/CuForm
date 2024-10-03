@@ -7,7 +7,7 @@ if (!$conn) {
   die('Connection error: ' . mysqli_connect_error());
 }
 
-$sql = "SELECT stud_name, matric_num FROM recommendation_of_supervisors";
+$sql = "SELECT id, stud_name, matric_num FROM recommendation_of_supervisors";
 $result = mysqli_query($conn, $sql);
 $students = mysqli_fetch_all($result, MYSQLI_ASSOC);
 $count = 0;
@@ -30,18 +30,27 @@ mysqli_close($conn);
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body class="preview-page">
+    <img class="preview-logo" src="./img/CU_LOGO.jpg" alt="" />
+    <div class="text-center">
+      <p>Recommendation for appointment of supervisors</p>
+      <p>(Masters Degree)</p>
+      <p class="title welcomeMsg">Welcome HOD</p>
+    </div>
     <p class="title">Pending Students</p>
       <?php foreach($students as $student){ ?>
         <?php $count++ ?>
-       <?php echo '<div class="holder"><p>'.$count.'</p>
-                      <div class="studsContainer">
-                        <p class="stud-name">
-                          Name : <span class="m-lg-2">'.$student['stud_name'].'</span>
-                        </p>
-                        <p class="stud-matric">
-                          Matric-Num : <span class="m-sm-2">'.$student['matric_num'].'</span>
-                        </p>
-                      </div>
+       <?php echo '<div class="holder">
+                      <p>'.$count.'</p>
+                      <a href="./endorse.php?id='.$student['id'].'">
+                        <div class="studsContainer">
+                          <p class="stud-name">
+                            Name : <span class="m-lg-2">'.$student['stud_name'].'</span>
+                          </p>
+                          <p class="stud-matric">
+                            Matric-Num : <span class="m-sm-2">'.$student['matric_num'].'</span>
+                          </p>
+                        </div>
+                      </a>
                     </div>' ?>
         <?php } ?>
   </body>

@@ -229,7 +229,7 @@ function clearCoSupervisorFormFields(data) {
 
 // Function to update the maximum character count
 function updateCharCount() {
-  const textarea = document.getElementById("comments");
+  const textarea = document.getElementById("hodComment");
   const charCounter = document.getElementById("charCounter");
   const maxLength = textarea.maxLength;
   const currentLength = textarea.value.length;

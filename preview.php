@@ -151,7 +151,7 @@ if (isset($_SESSION['form_data'])) {
        
        <div class="commentPreview mt-5">
           <p class="text-center title">
-            Coordinator Departmental PG Committee Comment
+            Comment
           </p>
           <p class="text-center">' . htmlspecialchars($formData['comments']) . '</p>
        </div>';

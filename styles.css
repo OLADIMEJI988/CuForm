@@ -264,7 +264,7 @@ body{
 }
 
 .studsContainer:active{
-    transform: scale(0.95);
+    transform: scale(0.96);
 }
 
 .holder{
@@ -273,4 +273,11 @@ body{
     align-items: baseline;
     gap: 20px;
     margin-bottom: 1rem;
+}
+a{
+    text-decoration: none;
+    color: inherit;
+}
+.welcomeMsg{
+    font-size: 25px;
 }
