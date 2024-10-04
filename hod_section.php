@@ -34,7 +34,7 @@ mysqli_close($conn);
     <div class="text-center">
       <p>Recommendation for appointment of supervisors</p>
       <p>(Masters Degree)</p>
-      <p class="title welcomeMsg">Welcome HOD</p>
+      <!-- <p class="title welcomeMsg">Welcome HOD</p> -->
     </div>
     <p class="title">Pending Students</p>
       <?php foreach($students as $student){ ?>
