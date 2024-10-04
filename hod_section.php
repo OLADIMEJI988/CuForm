@@ -37,20 +37,19 @@ mysqli_close($conn);
       <!-- <p class="title welcomeMsg">Welcome HOD</p> -->
     </div>
     <p class="title">Pending Students</p>
+    <div class="row mt-4">
+      <p class="col-1">S/N</p>
+      <p class="col-4">Name</p>
+      <p class="col-3">Matric Number</p>
+      <p class="col-3">Action</p>
+    </div>
       <?php foreach($students as $student){ ?>
         <?php $count++ ?>
-       <?php echo '<div class="holder">
-                      <p>'.$count.'</p>
-                      <a href="./endorse.php?id='.$student['id'].'">
-                        <div class="studsContainer">
-                          <p class="stud-name">
-                            Name : <span class="m-lg-2">'.$student['stud_name'].'</span>
-                          </p>
-                          <p class="stud-matric">
-                            Matric-Num : <span class="m-sm-2">'.$student['matric_num'].'</span>
-                          </p>
-                        </div>
-                      </a>
+       <?php echo ' <div class="row mt-2 holder">
+                      <p class="col-1">'.$count.'</p>
+                      <p class="stud-name-text col-4">'.$student['stud_name'].'</p>
+                      <p class="stud-matric-text col-3">'.$student['matric_num'].'</p>
+                      <a href="./endorse.php?id='.$student['id'].'" class="col-3"><button class="endorseBtn">Click here to Endorse</button></a>
                     </div>' ?>
         <?php } ?>
   </body>

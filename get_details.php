@@ -136,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // If successful, show success message and then redirect
     echo "<script>
             alert('Form submitted successfully!');
-            window.location.href = 'preview.php';
+            window.location.href = 'index.php';
           </script>";
     exit();
   } else {

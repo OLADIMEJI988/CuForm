@@ -202,6 +202,10 @@ mysqli_close($conn);
       <p class="char-counter" id="charCounter">200 characters remaining</p>
     </div>
 
+    <div class="btnContainer">
+      <button type="submit" class="btn">Submit</button>
+    </div>
+
     <script src="./form.js"></script>
   </body>
 </html>

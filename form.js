@@ -227,7 +227,7 @@ function clearCoSupervisorFormFields(data) {
   document.getElementById("coSupervisorSpecialisation").value = "";
 }
 
-// Function to update the maximum character count
+// Functions to update the maximum character count
 function updateMaxCount() {
   const textarea = document.getElementById("comments");
   const charCounter = document.getElementById("charCounter");
