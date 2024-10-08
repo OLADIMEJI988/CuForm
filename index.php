@@ -374,7 +374,7 @@
 
         <!-- Submit button -->
         <div class="btnContainer">
-          <button type="submit" class="btn">Submit</button>
+          <button type="submit" class="btn" id="submit">Submit</button>
         </div>
       </form>
     </div>
@@ -396,6 +396,36 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    
+    <script>
+      document.getElementById("submit").addEventListener("click", function (event) {
+        const studentName = document.getElementById("studName").value;
+        const supervisorName = document.getElementById("supervisorName").value;
+        const thesis = document.getElementById("thesis").value;
+        const comments = document.getElementById("comments").value;
+
+        // Checking if compulsory fields are empty
+        if (studentName === "" && supervisorName === "" && thesis === "" && comments === "") {
+          alert("Fill the form!");
+          event.preventDefault();
+        } else if (studentName === "" && thesis === "") {
+          alert("select student and input title of thesis");
+          event.preventDefault();
+        } else if (studentName === "") {
+          alert("Select Student");
+          event.preventDefault();
+        } else if (supervisorName === "") {
+          alert("Select Supervisor");
+          event.preventDefault();
+        } else if (thesis === "") {
+          alert("Title of Thesis field must not be empty");
+          event.preventDefault();
+        } else if (comments === "") {
+          alert("Comment section must not be empty");
+          event.preventDefault();
+        }
+      });
+    </script>
 
     <script src="./form.js"></script>
   </body>

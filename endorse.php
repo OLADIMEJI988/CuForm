@@ -97,7 +97,7 @@ mysqli_close($conn);
           <p><?php echo htmlspecialchars($formData['recent_reg_date']); ?></p>
         </div>
         <div class="senateApprovalPreview">
-          <p>Date of Senate Approval of Courework Result</p>
+          <p>Date of Senate Approval of Coursework Result</p>
           <p class="span">:</p>
           <p><?php echo htmlspecialchars($formData['senate_approval_date']); ?></p>
         </div>
@@ -202,10 +202,65 @@ mysqli_close($conn);
       <p class="char-counter" id="charCounter">200 characters remaining</p>
     </div>
 
-    <div class="btnContainer">
-      <button type="submit" class="btn">Submit</button>
+    <div class="d-flex">
+     <button type="button" id="endorseBtn" class="endorsebtn">Endorse</button>
+     <button type="button" id="notEndorseBtn" class="endorsebtn">Not Endorse</button>
     </div>
+    
+
+    <script>
+      document.getElementById("endorseBtn").addEventListener("click", function () {
+        const comment = document.getElementById("hodComment").value;
+
+        if(comment === ""){
+          alert("Comment section must not be empty");
+        } else{
+            // Send AJAX request to the PHP script
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "insert.php?id=<?php echo isset($_GET['id']) ? intval($_GET['id']) : 0; ?>", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            // Pass the comment and the 'endorsed' action
+            xhr.send("comment=" + encodeURIComponent(comment) + "&action=endorsed");
+
+            xhr.onload = function () {
+              if (xhr.status === 200) {
+                alert("Endorsement successful");
+                window.location.href = 'hod_section.php';
+              } else {
+                alert("Error submitting endorsement");
+              }
+            };
+          }
+      });
+
+      document.getElementById("notEndorseBtn").addEventListener("click", function () {
+        const comment = document.getElementById("hodComment").value;
+
+        if(comment === ""){
+          alert("Comment section must not be empty");
+        } else {
+            // Send AJAX request to the PHP script
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "insert.php?id=<?php echo isset($_GET['id']) ? intval($_GET['id']) : 0; ?>", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            // Pass the comment and the 'not endorsed' action
+            xhr.send("comment=" + encodeURIComponent(comment) + "&action=not endorsed");
+
+            xhr.onload = function () {
+              if (xhr.status === 200) {
+                alert("Successful");
+                window.location.href = 'hod_section.php';
+              } else {
+                alert("Error submitting endorsement action");
+              }
+            };
+          }
+      });
+    </script>
 
     <script src="./form.js"></script>
+
   </body>
 </html>

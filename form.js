@@ -118,16 +118,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Fetch and display co-supervisor details when a name is selected
 document.addEventListener("DOMContentLoaded", function () {
-  // Initialize Select2 on the select element
   $("#coSupervisorName").select2();
 
-  // Add 'change' event listener to the select2 element
   $("#coSupervisorName").on("change", function () {
     const selectedOption = $(this).find(":selected");
     const selectedName = selectedOption.text();
     const selectedValue = selectedOption.val();
 
-    // If no co-supervisor is selected, do nothing
+    // If no co-supervisor is selected, clear fields
     if (!selectedValue) {
       clearCoSupervisorFormFields();
       return;
