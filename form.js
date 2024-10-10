@@ -4,7 +4,7 @@ $(document).ready(function () {
     allowClear: true,
   });
 
-  $('#studName').on('select2:open', function() {
+  $("#studName").on("select2:open", function () {
     $(".select2-search__field").attr("placeholder", "Search for a student");
   });
 });
@@ -15,7 +15,7 @@ $(document).ready(function () {
     allowClear: true,
   });
 
-  $('#supervisorName').on('select2:open', function() {
+  $("#supervisorName").on("select2:open", function () {
     $(".select2-search__field").attr("placeholder", "Search for a supervisor");
   });
 });
@@ -26,8 +26,11 @@ $(document).ready(function () {
     allowClear: true,
   });
 
-  $('#coSupervisorName').on('select2:open', function() {
-    $(".select2-search__field").attr("placeholder", "Search for a co-supervisor");
+  $("#coSupervisorName").on("select2:open", function () {
+    $(".select2-search__field").attr(
+      "placeholder",
+      "Search for a co-supervisor"
+    );
   });
 });
 
@@ -247,3 +250,29 @@ function updateCharCount() {
   charCounter.textContent = remaining + " characters remaining";
   charCounter.classList.toggle("warning", remaining < 50);
 }
+
+// Add event listener to endorse button
+document.querySelectorAll(".endorseBtn").forEach((button) => {
+  button.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const studentId = parseInt(e.target.parentElement.href.split("=")[1]);
+
+    // Check if the student is already endorsed
+    if (!endorsedStudents.includes(studentId)) {
+      // Add the student to the endorsedStudents array
+      endorsedStudents.push(studentId);
+      // Store the updated array back to localStorage
+      localStorage.setItem(
+        "endorsedStudents",
+        JSON.stringify(endorsedStudents)
+      );
+    }
+
+    // Remove the endorsed student from the DOM
+    const studentDiv = e.target.closest(".holder");
+    if (studentDiv) {
+      studentDiv.remove();
+    }
+  });
+});

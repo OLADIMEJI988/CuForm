@@ -209,6 +209,7 @@ mysqli_close($conn);
     
 
     <script>
+      studentId = <?php echo $student_id ?>;
       document.getElementById("endorseBtn").addEventListener("click", function () {
         const comment = document.getElementById("hodComment").value;
 
@@ -226,7 +227,7 @@ mysqli_close($conn);
             xhr.onload = function () {
               if (xhr.status === 200) {
                 alert("Endorsement successful");
-                window.location.href = 'hod_section.php';
+                window.location.href = 'hod_section.php?id=<?php echo $student_id ?>';
               } else {
                 alert("Error submitting endorsement");
               }
@@ -251,7 +252,7 @@ mysqli_close($conn);
             xhr.onload = function () {
               if (xhr.status === 200) {
                 alert("Successful");
-                window.location.href = 'hod_section.php';
+                window.location.href = 'hod_section.php?id=<?php echo $student_id ?>';
               } else {
                 alert("Error submitting endorsement action");
               }
