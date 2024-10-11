@@ -14,13 +14,19 @@ $student_id = isset($_GET['id']) ? intval($_GET['id']) : null;
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'], $_POST['action'])) {
     $comment = mysqli_real_escape_string($conn, $_POST['comment']);
     $action = mysqli_real_escape_string($conn, $_POST['action']);
+    $role = mysqli_real_escape_string($conn, $_POST['role']);
     
-    // Making sure both student ID and data are valid
-    if ($student_id && $comment && $action) {
-        // SQL update query to update the comment and action for the specific student ID
-        $sql = "UPDATE recommendation_of_supervisors 
-                SET hod_comment = ?, hod_action = ? 
-                WHERE id = ?";
+    // Making sure student ID, comment, action, and role are valid
+    if ($student_id && $comment && $action && $role) {
+        if ($role === 'hod') {
+           // SQL update query to update the hod comment and action for the specific student ID
+            $sql = "UPDATE recommendation_of_supervisors 
+                    SET hod_comment = ?, hod_action = ? 
+                    WHERE id = ?";
+        } else {
+            echo "Invalid role specified";
+            exit();
+        }
 
         if ($stmt = mysqli_prepare($conn, $sql)) {
             mysqli_stmt_bind_param($stmt, "ssi", $comment, $action, $student_id);
