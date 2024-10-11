@@ -23,8 +23,6 @@ $student_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 mysqli_free_result($result);
 mysqli_close($conn);
 
-$count = 0;
-
 ?>
 
 <!DOCTYPE html>
