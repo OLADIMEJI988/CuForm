@@ -23,7 +23,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'], $_POST['ac
             $sql = "UPDATE recommendation_of_supervisors 
                     SET hod_comment = ?, hod_action = ? 
                     WHERE id = ?";
-        } else {
+        }else if ($role === 'collegePG') {
+            // SQL update query to update the college PG committee comment and action for the specific student ID
+            $sql = "UPDATE recommendation_of_supervisors 
+                    SET collegePG_comment = ?, collegePG_action = ? 
+                    WHERE id = ?";
+        }else {
             echo "Invalid role specified";
             exit();
         }

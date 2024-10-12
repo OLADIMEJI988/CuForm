@@ -204,16 +204,12 @@ if ($student_id) {
     </div>
 
     <div class="d-flex justify-content-center btnContain">
-        <a href="collegePgCommittee_section.html">
-          <button type="button" id="endorseBtn" class="endorsebtn">Endorse</button>
-        </a>
+        <button type="button" id="endorseBtn" class="endorsebtn">Endorse</button>
 
-        <a href="collegePgCommittee_section.html">
-         <button type="button" id="notEndorseBtn" class="notEndorsebtn">Reject</button>
-        </a>
+        <button type="button" id="notEndorseBtn" class="notEndorsebtn">Reject</button>
     </div>
 
-    <!-- <script>
+    <script>
       studentId = <?php echo $student_id ?>;
       document.getElementById("endorseBtn").addEventListener("click", function () {
         const comment = document.getElementById("pgCommitteeComment").value;
@@ -221,18 +217,20 @@ if ($student_id) {
         if(comment === ""){
           alert("Comment section must not be empty");
         } else{
+            const role = "collegePG";
+                    
             // Send AJAX request to the PHP script
             const xhr = new XMLHttpRequest();
             xhr.open("POST", "insert.php?id=<?php echo isset($_GET['id']) ? intval($_GET['id']) : 0; ?>", true);
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
             // Pass the comment and the 'endorsed' action
-            xhr.send("comment=" + encodeURIComponent(comment) + "&action=endorsed");
+            xhr.send("comment=" + encodeURIComponent(comment) + "&action=endorsed" + "&role=" + encodeURIComponent(role));
 
             xhr.onload = function () {
               if (xhr.status === 200) {
                 alert("Endorsement successful");
-                window.location.href = 'collegePgCommittee.html?id=<?php echo $student_id ?>';
+                window.location.href = 'collegePgCommittee_section.php?id=<?php echo $student_id ?>';
               } else {
                 alert("Error submitting endorsement");
               }
@@ -241,30 +239,32 @@ if ($student_id) {
       });
 
       document.getElementById("notEndorseBtn").addEventListener("click", function () {
-        const comment = document.getElementById("hodComment").value;
+        const comment = document.getElementById("pgCommitteeComment").value;
 
         if(comment === ""){
           alert("Comment section must not be empty");
         } else {
+            const role = "collegePG";
+
             // Send AJAX request to the PHP script
             const xhr = new XMLHttpRequest();
             xhr.open("POST", "insert.php?id=<?php echo isset($_GET['id']) ? intval($_GET['id']) : 0; ?>", true);
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
             // Pass the comment and the 'not endorsed' action
-            xhr.send("comment=" + encodeURIComponent(comment) + "&action=not endorsed");
+            xhr.send("comment=" + encodeURIComponent(comment) + "&action=not endorsed" + "&role=" + encodeURIComponent(role));
 
             xhr.onload = function () {
               if (xhr.status === 200) {
                 alert("Successful");
-                window.location.href = 'hod_section.php?id=<?php echo $student_id ?>';
+                window.location.href = 'collegePgCommittee_section.php?id=<?php echo $student_id ?>';
               } else {
                 alert("Error submitting endorsement action");
               }
             };
           }
       });
-    </script> -->
+    </script>
 
     <script src="./form.js"></script>
 
