@@ -240,42 +240,9 @@ function updateMaxCount() {
   charCounter.classList.toggle("warning", remaining < 50);
 }
 
-function updateCharCount() {
-  const textarea = document.getElementById("hodComment");
-  const charCounter = document.getElementById("charCounter");
-  const maxLength = textarea.maxLength;
-  const currentLength = textarea.value.length;
-  const remaining = maxLength - currentLength;
-
-  charCounter.textContent = remaining + " characters remaining";
-  charCounter.classList.toggle("warning", remaining < 50);
-}
-
-function updateCharCount() {
-  const textarea = document.getElementById("pgCommitteeComment, collegeDeanComment");
-  const charCounter = document.getElementById("charCounter");
-  const maxLength = textarea.maxLength;
-  const currentLength = textarea.value.length;
-  const remaining = maxLength - currentLength;
-
-  charCounter.textContent = remaining + " characters remaining";
-  charCounter.classList.toggle("warning", remaining < 50);
-}
-
-function updateCharCount() {
-  const textarea = document.getElementById("collegeDeanComment");
-  const charCounter = document.getElementById("charCounter");
-  const maxLength = textarea.maxLength;
-  const currentLength = textarea.value.length;
-  const remaining = maxLength - currentLength;
-
-  charCounter.textContent = remaining + " characters remaining";
-  charCounter.classList.toggle("warning", remaining < 50);
-}
-
-function updateCharCount() {
-  const textarea = document.getElementById("subDeanComment");
-  const charCounter = document.getElementById("charCounter");
+function updateCharCount(textareaId, counterId) {
+  const textarea = document.getElementById(textareaId);
+  const charCounter = document.getElementById(counterId);
   const maxLength = textarea.maxLength;
   const currentLength = textarea.value.length;
   const remaining = maxLength - currentLength;

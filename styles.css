@@ -124,11 +124,6 @@ body{
     color: rgb(255 255 253);
 }
 
-.endorsebtn:hover, .notEndorsebtn:hover{
-    background-color: #71488a;
-    color: rgb(255 255 253);
-}
-
 .btn:active{
     transform: scale(0.8);
 }
@@ -271,7 +266,7 @@ a{
     color: inherit;
 }
 
-.endorseBtn{
+.endorseBtn, .approveBtn, .rejectBtn{
     border-radius: 5px;
     max-width: 10pc;
     font-size: 14px;
@@ -282,7 +277,7 @@ a{
     color: rgb(255 255 253);
 }
 
-.endorseBtn:active, .notEndorsebtn:active{
+.endorseBtn:active, .notEndorsebtn:active, .approveBtn:active, .rejectBtn:active{
     transform: scale(0.96);
 }
 
@@ -306,4 +301,9 @@ a{
 
 .btnContain{
     gap: 230px;
+}
+
+.endorsebtn:hover, .notEndorsebtn:hover{
+    background-color: #71488a;
+    color: rgb(255 255 253);
 }

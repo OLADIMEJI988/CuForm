@@ -16,9 +16,7 @@ $student_id = isset($_GET['id']) ? mysqli_real_escape_string($conn, $_GET['id'])
 
 if ($student_id) {
   // Fetch student details based on the ID
-  $sql = "SELECT stud_name, matric_num, programme, college, degree, first_reg_date, recent_reg_date, senate_approval_date, thesis_title, supervisor_name,
-          supervisor_rank, supervisor_institutional_affiliation, supervisor_department, supervisor_qualifications, supervisor_area_of_specialisation, 
-          co_supervisor_name, co_supervisor_rank, co_supervisor_institutional_affiliation, co_supervisor_department, co_supervisor_area_of_specialisation, co_supervisor_qualifications, comment FROM recommendation_of_supervisors WHERE id = $student_id";
+  $sql = "SELECT * FROM recommendation_of_supervisors WHERE id = $student_id";
   
   $result = mysqli_query($conn, $sql);
 
@@ -32,10 +30,8 @@ if ($student_id) {
 
   mysqli_free_result($result);
 }
-
-// Close the connection
-mysqli_close($conn);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -186,64 +182,84 @@ mysqli_close($conn);
       <p class="text-center"><?php echo htmlspecialchars($formData['comment']); ?></p>
     </div>
 
+    <div class="commentPreview mt-5">
+      <p class="text-center title">Comment by HOD</p>
+      <p class="text-center"><?php echo htmlspecialchars($formData['hod_comment']); ?></p>
+    </div>
+
+    <div class="commentPreview mt-5">
+      <p class="text-center title">Comment by PG College committee</p>
+      <p class="text-center"><?php echo htmlspecialchars($formData['collegePG_comment']); ?></p>
+    </div>
+
+    <div class="commentPreview mt-5">
+      <p class="text-center title">Comment by College Dean</p>
+      <p class="text-center"><?php echo htmlspecialchars($formData['collegeDean_comment']); ?></p>
+    </div>
+
+    <div class="commentPreview mt-5">
+      <p class="text-center title">Comment by Sub-Dean</p>
+      <p class="text-center"><?php echo htmlspecialchars($formData['subDean_comment']); ?></p>
+    </div>
+
     <!-- Comment -->
     <div class="comment-container">
       <label for="comments" class="commentTxt">Comment</label>
       <textarea
         class="commentSection"
-        id="hodComment"
-        name="hodComment"
+        id="deanComment"
+        name="deanComment"
         rows="4"
         cols="70"
         maxlength="200"
-        oninput="updateCharCount('hodComment', 'charCounter')"
+        oninput="updateCharCount('deanComment', 'charCounter')"
         placeholder="Leave your remark here...."
       ></textarea>
       <p class="char-counter" id="charCounter">200 characters remaining</p>
     </div>
 
-    <div class="d-flex">
-     <button type="button" id="endorseBtn" class="endorsebtn">Endorse</button>
-     <button type="button" id="notEndorseBtn" class="notEndorsebtn">Reject</button>
+    <div class="d-flex justify-content-center btnContain">
+        <button type="button" id="approveBtn" class="endorsebtn">Approve</button>
+
+        <button type="button" id="rejectBtn" class="notEndorsebtn">Reject</button>
     </div>
-    
 
     <script>
       studentId = <?php echo $student_id ?>;
-      document.getElementById("endorseBtn").addEventListener("click", function () {
-        const comment = document.getElementById("hodComment").value;
+      document.getElementById("approveBtn").addEventListener("click", function () {
+        const comment = document.getElementById("deanComment").value;
 
         if(comment === ""){
           alert("Comment section must not be empty");
         } else{
-            const role = "hod";
+            const role = "dean";
                     
             // Send AJAX request to the PHP script
             const xhr = new XMLHttpRequest();
             xhr.open("POST", "insert.php?id=<?php echo isset($_GET['id']) ? intval($_GET['id']) : 0; ?>", true);
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-            // Pass the comment and the 'endorsed' action
-            xhr.send("comment=" + encodeURIComponent(comment) + "&action=endorsed" + "&role=" + encodeURIComponent(role));
+            // Pass the comment and the 'approved' action
+            xhr.send("comment=" + encodeURIComponent(comment) + "&action=approved" + "&role=" + encodeURIComponent(role));
 
             xhr.onload = function () {
               if (xhr.status === 200) {
                 alert("Endorsement successful");
-                window.location.href = 'hod_section.php?id=<?php echo $student_id ?>';
+                window.location.href = 'dean_section.php?id=<?php echo $student_id ?>';
               } else {
                 alert("Error submitting endorsement");
               }
             };
-          }
+        }
       });
 
-      document.getElementById("notEndorseBtn").addEventListener("click", function () {
-        const comment = document.getElementById("hodComment").value;
+      document.getElementById("rejectBtn").addEventListener("click", function () {
+        const comment = document.getElementById("deanComment").value;
 
         if(comment === ""){
           alert("Comment section must not be empty");
         } else {
-            const role = "hod";
+            const role = "dean";
 
             // Send AJAX request to the PHP script
             const xhr = new XMLHttpRequest();
@@ -251,17 +267,17 @@ mysqli_close($conn);
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
             // Pass the comment and the 'not endorsed' action
-            xhr.send("comment=" + encodeURIComponent(comment) + "&action=not endorsed" + "&role=" + encodeURIComponent(role));
+            xhr.send("comment=" + encodeURIComponent(comment) + "&action=rejected" + "&role=" + encodeURIComponent(role));
 
             xhr.onload = function () {
               if (xhr.status === 200) {
                 alert("Successful");
-                window.location.href = 'hod_section.php?id=<?php echo $student_id ?>';
+                window.location.href = 'dean_section.php?id=<?php echo $student_id ?>';
               } else {
                 alert("Error submitting endorsement action");
               }
             };
-          }
+        }
       });
     </script>
 

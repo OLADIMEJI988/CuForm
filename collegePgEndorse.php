@@ -197,7 +197,7 @@ if ($student_id) {
         rows="4"
         cols="70"
         maxlength="200"
-        oninput="updateCharCount()"
+        oninput="updateCharCount('pgCommitteeComment', 'charCounter')"
         placeholder="Leave your remark here...."
       ></textarea>
       <p class="char-counter" id="charCounter">200 characters remaining</p>
