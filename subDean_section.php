@@ -29,7 +29,7 @@ mysqli_close($conn);
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>College Dean section</title>
+    <title>Sub Dean section</title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="./styles.css" />
     <style>
@@ -54,16 +54,16 @@ mysqli_close($conn);
 
     <script>
       const studId = <?php echo $student_id ?>;
-      const excludedStudents = JSON.parse(localStorage.getItem("excludedStudents"));
+      const attendedStudents = JSON.parse(localStorage.getItem("attendedStudents"));
 
-      let storedStudentList = JSON.parse(localStorage.getItem("modifiedStudentList"));
+      let storedStudentList = JSON.parse(localStorage.getItem("alteredStudentData"));
       const studentJs = <?php echo $studentJs ?>;
       let students;
 
       if(storedStudentList && storedStudentList.length > 0){
         students = storedStudentList;
 
-        const poppedArray = JSON.parse(localStorage.getItem("attendedStudents")) || [];
+        const poppedArray = JSON.parse(localStorage.getItem("engagedStudents")) || [];
         const serializeObject = (obj) => {
           const keys = Object.keys(obj).sort();
           return keys.map(key => `${key}:${obj[key]}`).join('|');
@@ -71,40 +71,40 @@ mysqli_close($conn);
 
         const serializedArray1 = new Set(poppedArray.map(serializeObject));
         console.log(serializedArray1);
-        students = excludedStudents.filter(item => !serializedArray1.has(serializeObject(item)));
+        students = attendedStudents.filter(item => !serializedArray1.has(serializeObject(item)));
       } else {
         students = studentJs;
       }
 
-      let attendedStudents = JSON.parse(localStorage.getItem("attendedStudents")) || [];
+      let engagedStudents = JSON.parse(localStorage.getItem("engagedStudents")) || [];
 
       if(studId > 0){   
-        const modifiedStudentList = students.filter((item)=> {
+        const alteredStudentData = students.filter((item)=> {
           if(studId == item.id){
-            attendedStudents.push(item);
+            engagedStudents.push(item);
             return false; 
           } else {
             return true;
           }
         });
 
-        localStorage.setItem("attendedStudents", JSON.stringify(attendedStudents)); // Updating localStorage of attended students
-        localStorage.setItem("modifiedStudentList", JSON.stringify(modifiedStudentList)); // Updating student list
-        students = modifiedStudentList; // Updating students variable to reflect updated student list
+        localStorage.setItem("engagedStudents", JSON.stringify(engagedStudents)); // Updating localStorage of engaged students
+        localStorage.setItem("alteredStudentData", JSON.stringify(alteredStudentData)); // Updating student list
+        students = alteredStudentData; // Updating students variable to reflect updated student list
       }
 
       const body = document.querySelector("body");   
 
-      // Render attended students from the college PG committee section in the DOM
+      // Render attended students from the college Dean section in the DOM
       if (studId == 0) {
-        excludedStudents.map((student, index) => {
+        attendedStudents.map((student, index) => {
           const studentDiv = document.createElement("div");
           const numField = document.createElement("p");
           const actionLink = document.createElement("a");
           const action = document.createElement("button");
                 
           actionLink.className = "col-3";
-          actionLink.href =  `./collegeDeanEndorse.php?id=${student.id}`;
+          actionLink.href =  `./subDeanEndorse.php?id=${student.id}`;
           action.className = "endorseBtn";
           action.textContent = "Click to endorse";
                 
@@ -136,7 +136,7 @@ mysqli_close($conn);
           const action = document.createElement("button");
           
           actionLink.className = "col-3";
-          actionLink.href =  `./collegeDeanEndorse.php?id=${student.id}`;
+          actionLink.href =  `./subDeanEndorse.php?id=${student.id}`;
           action.className = "endorseBtn";
           action.textContent = "Click to endorse";
           
