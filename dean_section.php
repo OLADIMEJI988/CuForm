@@ -29,7 +29,7 @@ mysqli_close($conn);
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sub Dean section</title>
+    <title>Dean section</title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="./styles.css" />
     <style>

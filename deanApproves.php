@@ -266,7 +266,7 @@ if ($student_id) {
             xhr.open("POST", "insert.php?id=<?php echo isset($_GET['id']) ? intval($_GET['id']) : 0; ?>", true);
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-            // Pass the comment and the 'not endorsed' action
+            // Pass the comment and the 'rejection' action
             xhr.send("comment=" + encodeURIComponent(comment) + "&action=rejected" + "&role=" + encodeURIComponent(role));
 
             xhr.onload = function () {
